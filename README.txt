@@ -10,10 +10,10 @@ Para compilar:
   make
   
 Para rodar:
-  ./ep2
+  ./exe
 
 Para rodar testes:
   make testes
 
 Para ver as opções de parâmetros:
-  ./ep2 -h
+  ./exe -h

@@ -1,10 +1,10 @@
 CFLAGS = -Wall -pedantic -ansi -O2 -g  -lalleg-4.2.2 
-dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o animacao.o gera_animacao.o
-objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/animacao.o lib/gera_animacao.o
+dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o
+objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o
 
 all: lib ${dependencies}
 	clear
-	gcc ${CFLAGS} -o ep2 ${objects}
+	gcc ${CFLAGS} -o exe ${objects}
 
 main.o: lib src/main.c
 	gcc ${CFLAGS} -c src/main.c -o lib/main.o
@@ -24,11 +24,8 @@ movimenta_elementos.o: lib src/movimenta_elementos.c src/movimenta_elementos.h
 naufrago.o: lib src/naufrago.c src/naufrago.h
 	gcc ${CFLAGS} -c src/naufrago.c -o lib/naufrago.o
 
-animacao.o: lib src/animacao.c src/animacao.h
-	gcc ${CFLAGS} -c src/animacao.c -o lib/animacao.o
-	
-gera_animacao.o: lib src/gera_animacao.c src/gera_animacao.h
-	gcc ${CFLAGS} -c src/gera_animacao.c -o lib/gera_animacao.o
+visualizacao_grafica.o: lib src/visualizacao_grafica.c src/visualizacao_grafica.h
+	gcc ${CFLAGS} -c src/visualizacao_grafica.c -o lib/visualizacao_grafica.o
 
 testes: estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o src/minunit.c
 	gcc ${CFLAGS} src/minunit.c lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o -o teste
@@ -39,4 +36,4 @@ lib:
 	mkdir lib
 
 clean:
-	rm -rf ep2 lib
+	rm -rf exe lib

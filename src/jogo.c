@@ -58,7 +58,9 @@ void jogo(int oceano[][MAX_LONGITUDE], naufrago *passageiros){
   int tempo;
 
   /* cria e inicializa a janela do jogo */
-  inicializa_padrao();
+  inicializa_janela_padrao();
+
+  imprime_oceano(oceano);
 
   /* Inicializa a quantidade inicial de passageiros no jogo */
   qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;

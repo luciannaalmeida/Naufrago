@@ -10,14 +10,18 @@
 #include "imprime_estado_atual.h"
 
 /* Limpa o terminal para imprimir o oceano */
-void clear(){
+void clear_terminal(){
   printf("\033[2J\033[0;0f");
+}
+
+void imprime_no_modo_grafico(){
+  desenha_oceano();
 }
 
 /* Imprime o estado atual do oceano */
 void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   int i, j;
-  clear();
+  clear_terminal();
   printf("\n\n\n\n\n\n");
   for(i = 0; i < MAX_LATITUDE; ++i){
     printf("\t\t");
@@ -34,4 +38,6 @@ void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
     }
     printf("\n");
   }
+
+  imprime_no_modo_grafico();
 }

@@ -12,6 +12,7 @@
 
 #include "constantes.h"
 #include <stdio.h>
+#include "visualizacao_grafica.h"
 
 
 void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]);

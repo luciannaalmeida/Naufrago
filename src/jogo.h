@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <allegro.h>
 #include "naufrago.h"
-#include "animacao.h"
+#include "visualizacao_grafica.h"
 #include "imprime_estado_atual.h"
 #include "movimenta_elementos.h"
 
