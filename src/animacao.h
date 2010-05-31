@@ -16,7 +16,8 @@
 #define BITS_CORES_GRAFICO      8
 #define RESOLUCAO_HORIZONTAL 1024
 #define RESOLUCAO_VERTICAL     768
-
+#define VIRTUAL_HORIZONTAL      0
+#define VIRTUAL_VERTICAL        0
 
 /* Opção para inicializar a animação com valores padrão. */
 void inicializa_padrao();

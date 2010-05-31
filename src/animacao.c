@@ -30,7 +30,7 @@ void incicializa_animacao(int bits_cores_grafico, int resolucao_horizontal, int 
 	set_color_depth(bits_cores_grafico);
 
 	/*inicialização do modo gráfico*/
-	sucesso = set_gfx_mode(GFX_AUTODETECT, resolucao_horizontal, resolucao_vertical, 0, 0);
+	sucesso = set_gfx_mode(GFX_AUTODETECT, resolucao_horizontal, resolucao_vertical, VIRTUAL_HORIZONTAL, VIRTUAL_VERTICAL);
 	if ( sucesso < 0 ){
 		printf ("Erro ao inicializar o modo gráfico. Encerrando o programa.\n");
 		exit (-1);
