@@ -14,7 +14,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <allegro.h>
 #include "naufrago.h"
+#include "animacao.h"
 #include "imprime_estado_atual.h"
 #include "movimenta_elementos.h"
 

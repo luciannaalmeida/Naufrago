@@ -11,9 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <allegro.h>
 #include "estado_inicial.h"
 #include "movimenta_elementos.h"
 #include "jogo.h"
+
 
 /* imprime o menu de parametros */
 void imprime_help(){
@@ -91,3 +93,4 @@ int main(int argc, char* argv[]){
   return 0;
 }
 
+END_OF_MAIN()

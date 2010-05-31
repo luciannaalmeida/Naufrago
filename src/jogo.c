@@ -57,8 +57,11 @@ void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]
 void jogo(int oceano[][MAX_LONGITUDE], naufrago *passageiros){
   int tempo;
 
+  /* cria e inicializa a janela do jogo */
+  inicializa_padrao();
+
   /* Inicializa a quantidade inicial de passageiros no jogo */
-   qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;
+  qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;
 
   /* Enquanto nao eh o fim do jogo */
   for(tempo = 1; tempo < 30; tempo++){

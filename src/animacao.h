@@ -13,7 +13,6 @@
 #include "constantes.h"
 
 /* Valores padrão para inicialização do Allegro.*/
-#define BITS_CORES_GRAFICO      8
 #define RESOLUCAO_HORIZONTAL 1024
 #define RESOLUCAO_VERTICAL     768
 #define VIRTUAL_HORIZONTAL      0
@@ -23,7 +22,7 @@
 void inicializa_padrao();
 
 /* Opção para inicializar a animação com valores definidos pelo usuário. */
-void incicializa_animacao(int bits_cores_grafico, int resolucao_horizontal, int resolucao_vertical);
+void incicializa_animacao(int resolucao_horizontal, int resolucao_vertical);
 
 /* Carrega uma figura de um dado arquivo */
 BITMAP *carrega_figura(char *nomeArquivo);

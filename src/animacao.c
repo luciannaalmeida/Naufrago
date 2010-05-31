@@ -13,28 +13,40 @@
 
 /* Opção para inicializar a animação com valores padrão. */
 void inicializa_padrao(){
-	incicializa_animacao(BITS_CORES_GRAFICO, RESOLUCAO_HORIZONTAL, RESOLUCAO_VERTICAL);
+  incicializa_animacao(RESOLUCAO_HORIZONTAL, RESOLUCAO_VERTICAL);
 }
 
 /* Opção para inicializar a animação com valores definidos pelo usuário. */
-void incicializa_animacao(int bits_cores_grafico, int resolucao_horizontal, int resolucao_vertical){
+/* void incicializa_animacao(int bits_cores_grafico, int resolucao_horizontal, int resolucao_vertical){ */
+void incicializa_animacao(int resolucao_horizontal, int resolucao_vertical){
 	int sucesso;
-	
+	int bits_cores_grafico;
+
 	/*Inicializa o Allegro, o teclado, o mouse e os temporizadores*/
 	allegro_init();
 	install_keyboard();
 	install_mouse();
-	install_timer();
+	install_timer();	
+
+	/* guarda a quantidade de cores que a maquina do usuario suporta */
+	bits_cores_grafico = desktop_color_depth();
+
+	/* se retornou zero, usar 32 bits de cor */
+	if(bits_cores_grafico == 0) bits_cores_grafico = 32;
 
 	/*determina o número de bits de cores a ser usado pelos gráficos*/
 	set_color_depth(bits_cores_grafico);
 
+
 	/*inicialização do modo gráfico*/
 	sucesso = set_gfx_mode(GFX_AUTODETECT, resolucao_horizontal, resolucao_vertical, VIRTUAL_HORIZONTAL, VIRTUAL_VERTICAL);
-	if ( sucesso < 0 ){
+	if ( sucesso != 0 ){
 		printf ("Erro ao inicializar o modo gráfico. Encerrando o programa.\n");
 		exit (-1);
 	}
+
+	/* cria um titulo para a janela do jogo */
+   set_window_title("Naufrago");
 }
 
 /* Carrega uma figura de um dado arquivo */
