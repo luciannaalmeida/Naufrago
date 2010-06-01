@@ -58,9 +58,24 @@ void insere_imagem_na_tela(BITMAP *bitmap, int x, int y){
 	draw_sprite(screen, bitmap, x, y);
 }
 
-void desenha_oceano(){
+/* Insere uma figura origem em um local determinado de um destino*/
+void sobrepoe_figuras(BITMAP *origem, BITMAP *destino, int x, int y, int altura, int largura){
+	blit(origem, destino, 0, 0, x, y, largura, altura);
+}
+
+BITMAP* desenha_oceano(){
   BITMAP *oceano;
   oceano = carrega_imagem("imagens/Oceano.BMP");
   insere_imagem_na_tela(oceano, 0, 0);
+  return oceano;
 }
 
+void desenha_passageiro(BITMAP *destino, int x, int y){
+  BITMAP* passageiro = carrega_imagem("imagens/Circulo.png");
+  sobrepoe_figuras(passageiro, destino, x, y, 50, 50);
+}
+
+void desenha_colisao(BITMAP *destino, int x, int y){
+  BITMAP* colisao = carrega_imagem("imagens/Circulo_colisao.png");
+  sobrepoe_figuras(colisao, destino, x, y, 50, 50);
+}

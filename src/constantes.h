@@ -22,8 +22,8 @@
 #define AGUA 0
 #define PASSAGEIRO 1
 
-#define MAX_LATITUDE   30
-#define MAX_LONGITUDE 120
+#define MAX_LATITUDE   768
+#define MAX_LONGITUDE  1024
 
 #define _XOPEN_SOURCE 500
 #define _SVID_SOURCE 1

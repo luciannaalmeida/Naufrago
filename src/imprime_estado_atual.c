@@ -14,17 +14,28 @@ void clear_terminal(){
   printf("\033[2J\033[0;0f");
 }
 
-void imprime_no_modo_grafico(){
-  desenha_oceano();
+void imprime_no_modo_grafico(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+   int i,j;
+  BITMAP * tela = desenha_oceano();
+ 
+  for(i = 0; i < MAX_LATITUDE; ++i){
+    for(j = 0; j < MAX_LONGITUDE; ++j){
+	  /* Imprime @ onde existe apenas um passageiro */
+      if(oceano[i][j] == PASSAGEIRO)
+	desenha_passageiro(tela, i, j);
+      else if (oceano[i][j] != AGUA)
+	desenha_colisao(tela, i, j);
+    }
+  }
 }
 
 /* Imprime o estado atual do oceano */
 void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   int i, j;
   clear_terminal();
-  printf("\n\n\n\n\n\n");
+  /* printf("\n\n\n\n\n\n"); */
   for(i = 0; i < MAX_LATITUDE; ++i){
-    printf("\t\t");
+    /* printf("\t\t"); */
     for(j = 0; j < MAX_LONGITUDE; ++j){
 	  /* Imprime . onde eh agua */
       if(oceano[i][j] == AGUA)
@@ -39,5 +50,5 @@ void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
     printf("\n");
   }
 
-  imprime_no_modo_grafico();
+  imprime_no_modo_grafico(oceano);
 }
