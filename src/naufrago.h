@@ -32,6 +32,5 @@ void gera_passageiro(naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE
 void gera_e_coloca_passageiro_no_oceano(naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 int gera_velocidade_passageiro_aleatoria();
 naufrago reinicializa_passageiro(naufrago passageiro);
-void gera_passageiro_na_borda(naufrago *passageiros, int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 
 #endif

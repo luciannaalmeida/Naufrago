@@ -116,10 +116,3 @@ naufrago reinicializa_passageiro(naufrago passageiro){
   passageiro.direcao = gera_direcao_aleatoria();
   return passageiro;
 }
-
-void gera_passageiro_na_borda(naufrago *passageiros, int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
-  gera_passageiro(passageiros, id, oceano);
-  while(nao_esta_na_borda(passageiros[id]))
-	passageiros[id] = gera_posicao_aleatoria(passageiros[id]);
-  coloca_passageiro_no_oceano(passageiros[id], oceano);
-}
