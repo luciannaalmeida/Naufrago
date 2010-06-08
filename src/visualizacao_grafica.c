@@ -47,28 +47,28 @@ void incicializa_janela(int resolucao_horizontal, int resolucao_vertical){
   set_window_title("Naufrago"); 
 }
 
-/* carrega a imagem de um dado arquivo */
-BITMAP *carrega_imagem(char *nomeArquivo){
-  BITMAP *bitmap = load_bitmap(nomeArquivo, NULL);
-  return bitmap;
-}
+/* /\* carrega a imagem de um dado arquivo *\/ */
+/* BITMAP *carrega_imagem(char *nomeArquivo){ */
+/*   BITMAP *bitmap = load_bitmap(nomeArquivo, NULL); */
+/*   return bitmap; */
+/* } */
 
-/* Insere um bitmap na tela */
-void insere_imagem_na_tela(BITMAP *bitmap, int x, int y){
-  draw_sprite(screen, bitmap, x, y);
-}
+/* /\* Insere um bitmap na tela *\/ */
+/* void insere_imagem_na_tela(BITMAP *bitmap, int x, int y){ */
+/*   draw_sprite(screen, bitmap, x, y); */
+/* } */
 
-/* Insere uma figura origem em um local determinado de um destino*/
-void sobrepoe_figuras(BITMAP *origem, BITMAP *destino, int x, int y, int altura, int largura){
-  blit(origem, destino, 0, 0, x, y, largura, altura);
-}
+/* /\* Insere uma figura origem em um local determinado de um destino*\/ */
+/* void sobrepoe_figuras(BITMAP *origem, BITMAP *destino, int x, int y, int altura, int largura){ */
+/*   blit(origem, destino, 0, 0, x, y, largura, altura); */
+/* } */
 
-BITMAP* desenha_oceano(){
-  BITMAP *oceano;
-  oceano = carrega_imagem("imagens/Oceano.BMP");
-  insere_imagem_na_tela(oceano, 0, 0);
-  return oceano;
-}
+/* BITMAP* desenha_oceano(){ */
+/*   BITMAP *oceano; */
+/*   oceano = carrega_imagem("imagens/Oceano.BMP"); */
+/*   insere_imagem_na_tela(oceano, 0, 0); */
+/*   return oceano; */
+/* } */
 
 void desenha_passageiro(BITMAP *destino, int x, int y){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
@@ -81,4 +81,10 @@ void desenha_colisao(BITMAP *destino, int x, int y){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int  r, int g, int b); */
   circlefill(destino, x, y, RAIO_PASSAGEIRO, makecol(255, 0, 0)); /*red circle*/
+}
+
+void desenha_coral(BITMAP *destino, int x, int y){
+  /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
+  /*int makecol(int r, int g, int b); */
+  circlefill(destino, x, y, RAIO_CORAL, makecol(255, 100, 50)); /* circle*/
 }

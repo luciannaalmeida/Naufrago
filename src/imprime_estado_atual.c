@@ -16,11 +16,12 @@ void clear_terminal(){
 
 void imprime_no_modo_grafico(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   int i,j;
-   /* BITMAP * tela = desenha_oceano();  */
-   clear_to_color( screen, makecol( 0, 0, 255));
-
-     acquire_screen();
-
+  /* BITMAP * tela = desenha_oceano();  */
+  clear_to_color( screen, makecol( 0, 0, 255));
+  
+  acquire_screen();
+  inicia_corais(1, oceano);
+  
   for(i = 0; i < MAX_LATITUDE; ++i){
     for(j = 0; j < MAX_LONGITUDE; ++j){
       if(oceano[i][j] == PASSAGEIRO)

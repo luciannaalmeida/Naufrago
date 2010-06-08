@@ -16,6 +16,8 @@
 #include <math.h>
 #include "jogo.h"
 #include "naufrago.h"
+#include "colisoes.h"
+#include "coral.h"
 
 void inicializa_vetor_de_direcoes();
 void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);

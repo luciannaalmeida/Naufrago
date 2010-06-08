@@ -15,5 +15,6 @@ void insere_imagem_na_tela(BITMAP *bitmap, int x, int y);
 BITMAP* desenha_oceano();
 void desenha_passageiro(BITMAP *destino, int x, int y);
 void desenha_colisao(BITMAP *destino, int x, int y);
+void desenha_coral(BITMAP *destino, int x, int y);
 
 #endif
