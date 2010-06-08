@@ -1,5 +1,5 @@
 /*
-  EP2 - Laboratório de Programação     10/05/2010
+  EP3 - Laboratório de Programação     09/06/2010
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  
@@ -50,8 +50,6 @@ void calcula_nova_direcao(naufrago* passageiros, int i, int oceano[MAX_LATITUDE]
     passageiros[i].direcao = (passageiros[i].direcao + fator_direcao) % 8;
   }
 }
-
-
 
 /* Calcula a nova posicao do elemento de acordo com a sua direcao */
 naufrago calcula_nova_posicao_do_elemento(naufrago passageiro){

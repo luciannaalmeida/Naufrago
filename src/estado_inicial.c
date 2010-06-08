@@ -1,5 +1,5 @@
 /*
-  EP2 - Laboratório de Programação     10/05/2010
+  EP3 - Laboratório de Programação     9/06/2010
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  
@@ -28,8 +28,8 @@ naufrago* gera_estado_inicial_oceano(int oceano[][MAX_LONGITUDE]){
   
   /* Gera todos os passageiros iniciais */
   for(i = 0; i < QTD_INICIAL_PASSAGEIROS; ++i )
-    gera_passageiro(passageiros, i, oceano);
-  
+    gera_e_coloca_passageiro_no_oceano(passageiros, i, oceano);
+
   return passageiros;
 }
 

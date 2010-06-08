@@ -1,5 +1,5 @@
 /*
-  EP2 - Laboratório de Programação     10/05/2010
+  EP3 - Laboratório de Programação     09/06/2010
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  
@@ -42,11 +42,11 @@ void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]
   if(qtd_atual_passageiros < QTD_MAXIMA_PASSAGEIROS && frequencia_geracao_passageiros != 0){
 	if(frequencia_geracao_passageiros < 1){
 	  if(tempo % (periodo_geracao_passageiros(frequencia_geracao_passageiros)) == 0)
-		gera_passageiro(passageiros, qtd_atual_passageiros++, oceano);
+		gera_e_coloca_passageiro_no_oceano(passageiros, qtd_atual_passageiros++, oceano);
 	}
 	else
 	  for(i = 0; i < frequencia_geracao_passageiros; i++)
-		gera_passageiro(passageiros, qtd_atual_passageiros++, oceano);
+		gera_e_coloca_passageiro_no_oceano(passageiros, qtd_atual_passageiros++, oceano);
   }
   
   /* Atualiza posicao dos elementos no oceano */
