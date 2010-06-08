@@ -28,8 +28,10 @@ void seta_velocidade_maxima_passageiros(float velocidade_maxima);
 void seta_velocidade_minima_passageiros(float velocidade_minima);
 void seta_velocidade_media_passageiros(float velocidade_media);
 int esta_fora_do_oceano(naufrago passageiro);
-void gera_passageiro (naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
+void gera_passageiro(naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
+void gera_e_coloca_passageiro_no_oceano(naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 int gera_velocidade_passageiro_aleatoria();
 naufrago reinicializa_passageiro(naufrago passageiro);
+void gera_passageiro_na_borda(naufrago *passageiros, int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 
 #endif

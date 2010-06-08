@@ -71,6 +71,10 @@ int posicao_ocupada(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]
   return 1;
 }
 
+void coloca_passageiro_no_oceano(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+  oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO;
+}
+
 /* Funcao que gera um passageiro, com uma posicao e uma velocidade aleatorios */
 void gera_passageiro(naufrago *passageiros, int i, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
 
@@ -87,8 +91,12 @@ void gera_passageiro(naufrago *passageiros, int i, int oceano[MAX_LATITUDE][MAX_
   passageiros[i] = gera_posicao_aleatoria(passageiros[i]);
   while(posicao_ocupada(passageiros[i], oceano))
     passageiros[i] = gera_posicao_aleatoria(passageiros[i]);
+}
 
-  oceano[passageiros[i].coordenada_y][passageiros[i].coordenada_x] += PASSAGEIRO;
+/* gera passageiro em qualquer lugar do oceano. Essa geracao eh usada para inicializar do jogo */
+void gera_e_coloca_passageiro_no_oceano(naufrago *passageiros, int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+  gera_passageiro(passageiros, id, oceano);
+  coloca_passageiro_no_oceano(passageiros[id], oceano);
 }
 
 /* Verifica se passageiro nao esta na borda da matriz oceano */
@@ -107,4 +115,11 @@ naufrago reinicializa_passageiro(naufrago passageiro){
 	passageiro = gera_posicao_aleatoria(passageiro);
   passageiro.direcao = gera_direcao_aleatoria();
   return passageiro;
+}
+
+void gera_passageiro_na_borda(naufrago *passageiros, int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+  gera_passageiro(passageiros, id, oceano);
+  while(nao_esta_na_borda(passageiros[id]))
+	passageiros[id] = gera_posicao_aleatoria(passageiros[id]);
+  coloca_passageiro_no_oceano(passageiros[id], oceano);
 }

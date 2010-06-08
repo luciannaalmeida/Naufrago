@@ -28,8 +28,8 @@ naufrago* gera_estado_inicial_oceano(int oceano[][MAX_LONGITUDE]){
   
   /* Gera todos os passageiros iniciais */
   for(i = 0; i < QTD_INICIAL_PASSAGEIROS; ++i )
-    gera_passageiro(passageiros, i, oceano);
-  
+    gera_e_coloca_passageiro_no_oceano(passageiros, i, oceano);
+
   return passageiros;
 }
 

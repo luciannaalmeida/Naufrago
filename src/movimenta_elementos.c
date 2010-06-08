@@ -137,10 +137,8 @@ void troca_vetor_velocidade_de_passageiros_com_mesma_direcao(naufrago *passageir
 /* Inverte a direcao dos passageiros que colidiram */
 void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros){
   int i, j, numero_colisoes, passageiro_colidido = 0;
-
   
   for(i = 0; i < qtd_passageiros; i++){
-    
     /* Verifica com quantos passageiros o passageiro i colidiu */
     for(j = 0, numero_colisoes = 0; j < qtd_passageiros; j++)
       if(i != j && colidiram(passageiros[i], passageiros[j])){

@@ -42,11 +42,11 @@ void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]
   if(qtd_atual_passageiros < QTD_MAXIMA_PASSAGEIROS && frequencia_geracao_passageiros != 0){
 	if(frequencia_geracao_passageiros < 1){
 	  if(tempo % (periodo_geracao_passageiros(frequencia_geracao_passageiros)) == 0)
-		gera_passageiro(passageiros, qtd_atual_passageiros++, oceano);
+		gera_passageiro_na_borda(passageiros, qtd_atual_passageiros++, oceano);
 	}
 	else
 	  for(i = 0; i < frequencia_geracao_passageiros; i++)
-		gera_passageiro(passageiros, qtd_atual_passageiros++, oceano);
+		gera_passageiro_na_borda(passageiros, qtd_atual_passageiros++, oceano);
   }
   
   /* Atualiza posicao dos elementos no oceano */
@@ -66,7 +66,7 @@ void jogo(int oceano[][MAX_LONGITUDE], naufrago *passageiros){
   qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;
 
   /* Enquanto nao eh o fim do jogo */
-  for(tempo = 1; tempo < 500; tempo++){
+  for(tempo = 1; tempo < 30; tempo++){
     /* Tempo esperado para ajudar a impressao */
       usleep(500000);  
 
