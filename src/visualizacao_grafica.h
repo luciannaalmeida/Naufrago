@@ -4,12 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <allegro.h>
+#include "constantes.h"
 
-/* Valores padrão para inicialização do Allegro.*/
-#define RESOLUCAO_HORIZONTAL 1024
-#define RESOLUCAO_VERTICAL    768
-#define VIRTUAL_HORIZONTAL      0
-#define VIRTUAL_VERTICAL        0
+
 
 void inicializa_janela_padrao();
 void incicializa_janela(int resolucao_horizontal, int resolucao_vertical);

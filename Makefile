@@ -1,4 +1,4 @@
-CFLAGS = -Wall -pedantic -ansi -O2 -g  -lalleg-4.2.2 
+CFLAGS = -Wall -pedantic -ansi -O2 -g -ggdb3 -lalleg-4.2.2 
 dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o
 objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o
 

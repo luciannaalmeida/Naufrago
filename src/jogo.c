@@ -66,15 +66,15 @@ void jogo(int oceano[][MAX_LONGITUDE], naufrago *passageiros){
   qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;
 
   /* Enquanto nao eh o fim do jogo */
-  for(tempo = 1; tempo < 30; tempo++){
-	/* Tempo esperado para ajudar a impressao */
-    usleep(100000);
+  for(tempo = 1; tempo < 500; tempo++){
+    /* Tempo esperado para ajudar a impressao */
+      usleep(500000);  
 
-    printf("\n\n");
     imprime_oceano(oceano);
-    printf("\n\n");
 	
-	/* Realiza uma rodada do jogo */
-	atualiza_jogo(passageiros, tempo, oceano);
+    /* Realiza uma rodada do jogo */
+    atualiza_jogo(passageiros, tempo, oceano);
   }
+  
+  free(passageiros);
 }
