@@ -14,15 +14,23 @@
 #define VEL_MEDIA_PASSAGEIROS      75
 #define VEL_MAX_PASSAGEIROS       100
 #define VEL_MIN_PASSAGEIROS        50
+#define RAIO_PASSAGEIRO            10 
 
 #define FREQ_GERACAO_PASSAGEIROS   10
-#define QTD_INICIAL_PASSAGEIROS    60
-#define QTD_MAXIMA_PASSAGEIROS    100
+#define QTD_INICIAL_PASSAGEIROS    10
+#define QTD_MAXIMA_PASSAGEIROS    20
+
+/* Valores padrão para inicialização do Allegro.*/
+
+#define RESOLUCAO_HORIZONTAL    1024
+#define RESOLUCAO_VERTICAL     768
+#define VIRTUAL_HORIZONTAL      0
+#define VIRTUAL_VERTICAL        0
 
 #define AGUA 0
 #define PASSAGEIRO 1
 
-#define MAX_LATITUDE   768
+#define MAX_LATITUDE   768 
 #define MAX_LONGITUDE  1024
 
 #define _XOPEN_SOURCE 500

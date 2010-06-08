@@ -13,6 +13,7 @@
 #include "constantes.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "jogo.h"
 #include "naufrago.h"
 

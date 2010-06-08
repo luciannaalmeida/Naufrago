@@ -51,11 +51,39 @@ void calcula_nova_direcao(naufrago* passageiros, int i, int oceano[MAX_LATITUDE]
   }
 }
 
+int distancia_quadratica_entre_centros(naufrago elemento_A, naufrago elemento_B){
+  int distancia_abcissa = elemento_A.coordenada_x - elemento_B.coordenada_x;
+  int distancia_ordenada = elemento_A.coordenada_y - elemento_B.coordenada_y;
+  
+  return (distancia_abcissa*distancia_abcissa) + (distancia_ordenada*distancia_ordenada);
+}
+
+int distancia_quadratica_minima_entre_centros(int raio1, int raio2){
+  int distancia_minima = raio1+raio2;
+  return distancia_minima*distancia_minima; 
+}
+
 /* Verifica se passageiros colidiram */
 int colidiram(naufrago passageiro_A, naufrago passageiro_B){
-  if(passageiro_A.coordenada_x == passageiro_B.coordenada_x &&
-	 passageiro_A.coordenada_y == passageiro_B.coordenada_y  )
-	return 1;
+  /* if(passageiro_A.coordenada_x == passageiro_B.coordenada_x && */
+  /* 	 passageiro_A.coordenada_y == passageiro_B.coordenada_y  ) */
+  int raio = RAIO_PASSAGEIRO;
+  int distancia = distancia_quadratica_entre_centros(passageiro_A, passageiro_B);
+  int distancia_minima = distancia_quadratica_minima_entre_centros(raio, raio);
+
+  if (distancia <= distancia_minima){
+    printf("distancia entre centros - %d         distancia minima - %d\n", distancia, distancia_minima);
+    printf("passageiro_A.coordenada_x %d passageiro_A.coordenada_y %d \n" 
+	   "passageiro_B.coordenada_x %d passageiro_B.coordenada_y %d \n"
+	   "passageiro_A.direcao %d  passageiro_B.direcao %d\n"
+	   "passageiro_A.id %d passageiro_B.id %d\n\n",
+	   passageiro_A.coordenada_x , passageiro_A.coordenada_y ,   
+	   passageiro_B.coordenada_x , passageiro_B.coordenada_y ,
+	   passageiro_A.direcao,  passageiro_B.direcao,
+	   passageiro_A.id, passageiro_B.id);
+    
+    return 1;
+  }
   return 0;
 }
 
@@ -98,7 +126,7 @@ void troca_vetor_velocidade_dos_passageiros(naufrago *passageiros, int id_A, int
 
 /* Inverte a direcao do vetor velocidade de um dos elementos depois troca os vetores dos passageiros */
 void troca_vetor_velocidade_de_passageiros_com_mesma_direcao(naufrago *passageiros, int id_A, int id_B){
-  if(passageiros[id_A].modulo_velocidade > passageiros[id_B].modulo_velocidade)
+  if(passageiros[id_A].modulo_velocidade < passageiros[id_B].modulo_velocidade)
 	passageiros[id_A].direcao = inverte_direcao(passageiros[id_A].direcao);
   else
 	passageiros[id_B].direcao = inverte_direcao(passageiros[id_B].direcao);
@@ -109,31 +137,33 @@ void troca_vetor_velocidade_de_passageiros_com_mesma_direcao(naufrago *passageir
 /* Inverte a direcao dos passageiros que colidiram */
 void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros){
   int i, j, numero_colisoes, passageiro_colidido = 0;
+
+  
   for(i = 0; i < qtd_passageiros; i++){
-
-	/* Verifica com quantos passageiros o passageiro i colidiu */
-	for(j = 0, numero_colisoes = 0; j < qtd_passageiros; j++)
-	  if(i != j && colidiram(passageiros[i], passageiros[j])){
-		passageiro_colidido = j;
-		numero_colisoes++;
-	  }
-	
-	if(numero_colisoes >= 1){
-	  /* Verifica se o passageiro colidiu com apenas um outro passageiro */
-	  if(numero_colisoes == 1 && i < j){
-		if(passageiros[i].direcao == passageiros[j].direcao)
-		  troca_vetor_velocidade_de_passageiros_com_mesma_direcao(passageiros, i, j);
-		else
-		  troca_vetor_velocidade_dos_passageiros(passageiros, i, passageiro_colidido);
-	  }
-
-	  /* Inverte a direcao do passageiro no caso de ter ocorrido alguma colisao (numero_colisoes > 1) */
-	  else if(numero_colisoes > 1)
-		passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
-		
-	  /* Marca no passageiro que ocorreu colisao */
-	  passageiros[i].houve_colisao = 1;
-	}
+    
+    /* Verifica com quantos passageiros o passageiro i colidiu */
+    for(j = 0, numero_colisoes = 0; j < qtd_passageiros; j++)
+      if(i != j && colidiram(passageiros[i], passageiros[j])){
+	passageiro_colidido = j;
+	numero_colisoes++;
+      }
+    
+    if(numero_colisoes >= 1){
+      /* Verifica se o passageiro colidiu com apenas um outro passageiro */
+      if(numero_colisoes == 1 && i < j){
+	if(passageiros[i].direcao == passageiros[j].direcao)
+	  troca_vetor_velocidade_de_passageiros_com_mesma_direcao(passageiros, i, j);
+	else
+	  troca_vetor_velocidade_dos_passageiros(passageiros, i, passageiro_colidido);
+      }
+      
+      /* Inverte a direcao do passageiro no caso de ter ocorrido alguma colisao (numero_colisoes > 1) */
+      else if(numero_colisoes > 1)
+	passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+      
+      /* Marca no passageiro que ocorreu colisao */
+      passageiros[i].houve_colisao = 1;
+    }
   }
 }
 
@@ -167,27 +197,27 @@ void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros,
 
   for(i = 0; i < qtd_passageiros; i++){
 
-	/* Se nao houve colisao e nao passou tempo suficiente para o passageiro mudar de lugar, tempo_no_lugar eh acrescido */
-	if((passageiros[i].houve_colisao == 0) && (passageiros[i].tempo_no_lugar == (100 - passageiros[i].modulo_velocidade + 1))){
-	  passageiros[i].tempo_no_lugar ++;
-	}
-
-	else{
-
-	  /* Verifica se o passageiro havia colidido com alguma coisa na ultima rodada. Se sim, sua direcao nao sera recalculada */	  
-	  /* Se nao havia colidido, calcula nova direcao normalmente */
-	  if(passageiros[i].houve_colisao == 0)
-		calcula_nova_direcao(passageiros, i, oceano);
-
-	  /* Seta houve_colisao e tempo_no_lugar */
-	  passageiros[i].houve_colisao = 0;
-	  passageiros[i].tempo_no_lugar = 1;
-
-	  /* Muda o passageiro de lugar no oceano */
-	  passageiros[i] = atualiza_posicao_do_elemento_no_oceano(passageiros[i], oceano);
-	}
+    /* Se nao houve colisao e nao passou tempo suficiente para o passageiro mudar de lugar, tempo_no_lugar eh acrescido */
+    if((passageiros[i].houve_colisao == 0) && (passageiros[i].tempo_no_lugar == (100 - passageiros[i].modulo_velocidade + 1))){
+      passageiros[i].tempo_no_lugar ++;
+    }
+    
+    else{
+      
+      /* Verifica se o passageiro havia colidido com alguma coisa na ultima rodada. Se sim, sua direcao nao sera recalculada */	  
+      /* Se nao havia colidido, calcula nova direcao normalmente */
+      if(passageiros[i].houve_colisao == 0)
+	calcula_nova_direcao(passageiros, i, oceano);
+      
+      /* Seta houve_colisao e tempo_no_lugar */
+      passageiros[i].houve_colisao = 0;
+      passageiros[i].tempo_no_lugar = 1;
+      
+      /* Muda o passageiro de lugar no oceano */
+      passageiros[i] = atualiza_posicao_do_elemento_no_oceano(passageiros[i], oceano);
+    }
   }
-
+  
   /* Verifica e trata as colisoes */
   trata_colisao_entre_passageiros(passageiros, qtd_passageiros);
 }
