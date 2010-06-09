@@ -142,9 +142,9 @@ void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
     for(j = 0; j< 3; j++){
       if(colidiu_com_coral(passageiros[i], vetor_posicao_dos_corais[j]))
 	 passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
-	 }
     }
   }
+}
 
 
 

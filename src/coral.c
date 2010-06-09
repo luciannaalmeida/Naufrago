@@ -22,17 +22,17 @@ void inicia_corais(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
 /*desenha os corais da fase 1*/
 void fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   vetor_posicao_dos_corais[0].x = 0;
-  vetor_posicao_dos_corais[0].y = 512;
-  oceano[512][0] = -1;
-  desenha_coral(screen, 0, 512);
+  vetor_posicao_dos_corais[0].y = 384;
+  oceano[384][0] = -1;
+  desenha_coral(screen, 0, 384);
 
-  vetor_posicao_dos_corais[0].x = 768;
-  vetor_posicao_dos_corais[0].y = 0;
-  oceano[768][0] = -1;
-  desenha_coral(screen, 768, 0);
+  vetor_posicao_dos_corais[1].x = 1024;
+  vetor_posicao_dos_corais[1].y = 0;
+  oceano[1024][0] = -1;
+  desenha_coral(screen, 1024, 0);
 
-  vetor_posicao_dos_corais[0].x = 768;
-  vetor_posicao_dos_corais[0].y = 1024;
-  oceano[768][1024] = -1;
-  desenha_coral(screen, 768, 1024);
+  vetor_posicao_dos_corais[2].x = 1024;
+  vetor_posicao_dos_corais[2].y = 768;
+  oceano[1024][768] = -1;
+  desenha_coral(screen, 1024, 768);
 }
