@@ -11,10 +11,10 @@
 
 /* Funcao que popula a matriz oceano com agua */
 void coloca_agua_no_oceano(int oceano[][MAX_LONGITUDE]){
-  int i, j;
-  for ( i = 0; i < MAX_LATITUDE; ++i)
-    for ( j = 0; j < MAX_LONGITUDE; ++j)
-      oceano[i][j] = AGUA;
+  int y, x;
+  for(y = 0; y < MAX_LATITUDE; y++)
+    for(x = 0; x < MAX_LONGITUDE; x++)
+      oceano[y][x] = AGUA;
 }
 
 /* Funcao que gera as condicoes iniciais do oceano */

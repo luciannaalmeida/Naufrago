@@ -11,7 +11,7 @@
 
 /* Opção para inicializar a animação com valores padrão. */
 void inicializa_janela_padrao(){
-  incicializa_janela(RESOLUCAO_HORIZONTAL, RESOLUCAO_VERTICAL);
+  incicializa_janela(RESOLUCAO_VERTICAL, RESOLUCAO_HORIZONTAL);
 }
 
 /* Opção para inicializar a animação com valores definidos pelo usuário. */
@@ -37,7 +37,7 @@ void incicializa_janela(int resolucao_horizontal, int resolucao_vertical){
   
   
   /*inicialização do modo grafico*/
-  sucesso = set_gfx_mode(GFX_AUTODETECT, resolucao_horizontal, resolucao_vertical, VIRTUAL_HORIZONTAL, VIRTUAL_VERTICAL);
+  sucesso = set_gfx_mode(GFX_AUTODETECT, resolucao_vertical, resolucao_horizontal, VIRTUAL_VERTICAL, VIRTUAL_HORIZONTAL);
   if ( sucesso != 0 ){
     printf ("Erro ao inicializar o modo gráfico. Encerrando o programa.\n");
     exit (-1);
@@ -70,20 +70,20 @@ void incicializa_janela(int resolucao_horizontal, int resolucao_vertical){
 /*   return oceano; */
 /* } */
 
-void desenha_passageiro(BITMAP *destino, int x, int y){
+void desenha_passageiro(BITMAP *destino, int y, int x){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int  r, int g, int b); */
   circlefill(destino, x, y, RAIO_PASSAGEIRO, makecol(0, 255, 0)); /*green circle*/
   
 }
 
-void desenha_colisao(BITMAP *destino, int x, int y){
+void desenha_colisao(BITMAP *destino, int y, int x){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int  r, int g, int b); */
   circlefill(destino, x, y, RAIO_PASSAGEIRO, makecol(255, 0, 0)); /*red circle*/
 }
 
-void desenha_coral(BITMAP *destino, int x, int y){
+void desenha_coral(BITMAP *destino, int y, int x){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int r, int g, int b); */
   circlefill(destino, x, y, RAIO_CORAL, makecol(255, 100, 50)); /* circle*/

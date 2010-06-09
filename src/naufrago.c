@@ -72,9 +72,7 @@ int posicao_ocupada(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]
 }
 
 /* coloca o passageiro na posicao que foi atribuida a ele */
-void coloca_passageiro_no_oceano(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
-  oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO;
-}
+
 
 /* Funcao que gera um passageiro, com uma posicao e uma velocidade aleatorios */
 void gera_passageiro(naufrago *passageiros, int i, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
@@ -92,6 +90,10 @@ void gera_passageiro(naufrago *passageiros, int i, int oceano[MAX_LATITUDE][MAX_
   passageiros[i] = gera_posicao_aleatoria(passageiros[i]);
   while(posicao_ocupada(passageiros[i], oceano))
     passageiros[i] = gera_posicao_aleatoria(passageiros[i]);
+}
+
+void coloca_passageiro_no_oceano(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+  oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO;
 }
 
 /* gera passageiro em qualquer lugar do oceano. Essa geracao eh usada para inicializar do jogo */

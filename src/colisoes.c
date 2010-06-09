@@ -10,10 +10,10 @@
 #include "colisoes.h"
 
 int distancia_quadratica_entre_centros(naufrago elemento_A, naufrago elemento_B){
-  int distancia_abcissa = elemento_A.coordenada_x - elemento_B.coordenada_x;
-  int distancia_ordenada = elemento_A.coordenada_y - elemento_B.coordenada_y;
+  int distancia_x = elemento_A.coordenada_x - elemento_B.coordenada_x;
+  int distancia_y = elemento_A.coordenada_y - elemento_B.coordenada_y;
   
-  return (distancia_abcissa*distancia_abcissa) + (distancia_ordenada*distancia_ordenada);
+  return (distancia_x * distancia_x) + (distancia_y * distancia_y);
 }
 
 int distancia_quadratica_minima_entre_centros(int raio1, int raio2){
@@ -71,22 +71,21 @@ void troca_vetor_velocidade_de_passageiros_com_mesma_direcao(naufrago *passageir
 
 /* Verifica se 2 passageiros colidiram */
 int colidiram(naufrago passageiro_A, naufrago passageiro_B){
-  /* if(passageiro_A.coordenada_x == passageiro_B.coordenada_x && */
-  /* 	 passageiro_A.coordenada_y == passageiro_B.coordenada_y  ) */
-  int raio = RAIO_PASSAGEIRO;
-  int distancia = distancia_quadratica_entre_centros(passageiro_A, passageiro_B);
-  int distancia_minima = distancia_quadratica_minima_entre_centros(raio, raio);
+  int raio, distancia, distancia_minima;
+  raio = RAIO_PASSAGEIRO;
+  distancia = distancia_quadratica_entre_centros(passageiro_A, passageiro_B);
+  distancia_minima = distancia_quadratica_minima_entre_centros(raio, raio);
 
   if (distancia <= distancia_minima){
-    printf("distancia entre centros - %d         distancia minima - %d\n", distancia, distancia_minima);
-    printf("passageiro_A.coordenada_x %d passageiro_A.coordenada_y %d \n" 
-	   "passageiro_B.coordenada_x %d passageiro_B.coordenada_y %d \n"
-	   "passageiro_A.direcao %d  passageiro_B.direcao %d\n"
-	   "passageiro_A.id %d passageiro_B.id %d\n\n",
-	   passageiro_A.coordenada_x , passageiro_A.coordenada_y ,   
-	   passageiro_B.coordenada_x , passageiro_B.coordenada_y ,
-	   passageiro_A.direcao,  passageiro_B.direcao,
-	   passageiro_A.id, passageiro_B.id);
+    /* printf("distancia entre centros - %d         distancia minima - %d\n", distancia, distancia_minima); */
+    /* printf("passageiro_A.coordenada_x %d passageiro_A.coordenada_y %d \n"  */
+	/*    "passageiro_B.coordenada_x %d passageiro_B.coordenada_y %d \n" */
+	/*    "passageiro_A.direcao %d  passageiro_B.direcao %d\n" */
+	/*    "passageiro_A.id %d passageiro_B.id %d\n\n", */
+	/*    passageiro_A.coordenada_x , passageiro_A.coordenada_y ,    */
+	/*    passageiro_B.coordenada_x , passageiro_B.coordenada_y , */
+	/*    passageiro_A.direcao,  passageiro_B.direcao, */
+	/*    passageiro_A.id, passageiro_B.id); */
     
     return 1;
   }
@@ -110,15 +109,15 @@ void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros)
     if(numero_colisoes >= 1){
       /* Verifica se o passageiro colidiu com apenas um outro passageiro */
       if(numero_colisoes == 1 && i < j){
-	if(passageiros[i].direcao == passageiros[j].direcao)
-	  troca_vetor_velocidade_de_passageiros_com_mesma_direcao(passageiros, i, j);
-	else
-	  troca_vetor_velocidade_dos_passageiros(passageiros, i, passageiro_colidido);
+		if(passageiros[i].direcao == passageiros[j].direcao)
+		  troca_vetor_velocidade_de_passageiros_com_mesma_direcao(passageiros, i, j);
+		else
+		  troca_vetor_velocidade_dos_passageiros(passageiros, i, passageiro_colidido);
       }
       
       /* Inverte a direcao do passageiro no caso de ter ocorrido alguma colisao (numero_colisoes > 1) */
       else if(numero_colisoes > 1)
-	passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+		passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
       
       /* Marca no passageiro que ocorreu colisao */
       passageiros[i].houve_colisao = 1;
@@ -126,15 +125,15 @@ void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros)
   }
 }
 
-
+/* calcula a distancia quadratica entre os centros do coral e do naufrago */
 int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, Coral coral){
   int distancia_abcissa = passageiro.coordenada_x - coral.centro_x;
   int distancia_ordenada = passageiro.coordenada_y - coral.centro_y;
-  
-  return (distancia_abcissa*distancia_abcissa) + (distancia_ordenada*distancia_ordenada);
 
+  return (distancia_abcissa*distancia_abcissa) + (distancia_ordenada*distancia_ordenada);
 }
 
+/* verifica se houve colisao entre o passageiro e o coral */
 int colidiu_com_coral(naufrago passageiro, Coral coral){
   int distancia = distancia_quadratica_entre_coral_e_naufrago(passageiro, coral);
   int distancia_minima = distancia_quadratica_minima_entre_centros(RAIO_PASSAGEIRO, RAIO_CORAL);
@@ -144,9 +143,10 @@ int colidiu_com_coral(naufrago passageiro, Coral coral){
   return 0;
 }
 
+/* traca a colisao de um passageiro com um coral */
 void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
   int i, j;
-  
+
   for(i = 0; i < qtd_passageiros; i++){
     for(j = 0; j< 3; j++){
       if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
