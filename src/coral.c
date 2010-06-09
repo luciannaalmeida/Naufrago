@@ -36,9 +36,18 @@ int distancia_quadratica_entre_centro_do_coral_e_ponto(int y, int x, Coral coral
 }
 
 /* verifica se o ponto em analise eh interno ao coral */
-int esta_dentro_do_coral(int y, int x, Coral coral ){
+int esta_dentro_do_coral(int y, int x, int id){
+  Coral coral = vetor_de_corais[id];
   if(distancia_quadratica_entre_centro_do_coral_e_ponto(y, x, coral) <= (RAIO_CORAL * RAIO_CORAL))
 	return 1;
+  return 0;
+}
+
+int esta_em_algum_coral(int y, int x){
+  int i;
+  for(i = 0; i < NUMERO_DE_CORAIS; i++)
+	if(esta_dentro_do_coral(y, x, i))
+	  return 1;
   return 0;
 }
 
@@ -50,7 +59,7 @@ void coloca_coral_no_oceano(int id, int oceano[][MAX_LONGITUDE]){
   
   for(y = (centro_y - RAIO_CORAL); y <= (centro_y + RAIO_CORAL); y++)
 	for(x = (centro_x - RAIO_CORAL); x <= (centro_x + RAIO_CORAL); x++)
-	  if(esta_dentro_do_oceano(y, x) && esta_dentro_do_coral(y, x, vetor_de_corais[id]))
+	  if(esta_dentro_do_oceano(y, x) && esta_dentro_do_coral(y, x, id))
 		oceano[y][x] = CORAL;
 }
 

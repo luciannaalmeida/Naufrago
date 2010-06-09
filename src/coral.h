@@ -33,5 +33,8 @@ void escolhe_fase_para_imprimir(int fase);
 
 int esta_dentro_do_oceano(int y, int x);
 
+int esta_em_algum_coral(int y, int x);
+
+
 
 #endif

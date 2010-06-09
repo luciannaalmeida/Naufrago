@@ -148,7 +148,7 @@ void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
   int i, j;
 
   for(i = 0; i < qtd_passageiros; i++){
-    for(j = 0; j< 3; j++){
+    for(j = 0; j< NUMERO_DE_CORAIS; j++){
       if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
 		passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
     }
@@ -174,5 +174,39 @@ void trata_colisao_com_asimov(naufrago* passageiros, int qtd_passageiros){
   }
 }
 
-void trata_colisoes_do_bote(int id){  
+int bote_bateu_na_borda_do_oceano(int id, int y, int x){
+  if(!esta_no_oceano(y, (x - ALTURA_BOTE/3)) || !esta_no_oceano(y, (x + ALTURA_BOTE/3)) || !esta_no_oceano((y - ALTURA_BOTE), x))
+	return 1;
+  return 0;
+}
+
+int bote_bateu_na_asimov(int id, int y, int x){
+  if(esta_na_asimov(y, (x - ALTURA_BOTE/3)) || esta_na_asimov(y, (x + ALTURA_BOTE/3)) || esta_na_asimov((y - ALTURA_BOTE), x))
+	return 1;
+  return 0;
+}
+
+int bote_bateu_no_coral(int y, int x){
+  if(esta_em_algum_coral(y, (x-ALTURA_BOTE/3)) || esta_em_algum_coral(y, (x+ALTURA_BOTE/3)) || esta_em_algum_coral((y-ALTURA_BOTE), x))
+	return 1;
+  return 0;
+}
+
+void trata_colisao_do_bote_com_os_elementos_estaticos(int id){
+  int direcao_antiga;
+  int y, x;
+  y = pega_y_da_base_do_bote(id);
+  x = pega_x_da_base_do_bote(id);
+
+  if(bote_bateu_na_borda_do_oceano(id, y, x) || bote_bateu_na_asimov(id, y, x) || bote_bateu_no_coral(y, x)){
+	direcao_antiga = pega_direcao_do_bote(id);
+	seta_direcao_do_bote(id, inverte_direcao(direcao_antiga));
+  }
+}
+
+void trata_colisoes_do_bote(int id){
+  trata_colisao_do_bote_com_os_elementos_estaticos(id);
+  /* trata_colisao_do_bote_com_passageiros(id); */
+  /* trata_colisao_do_bote_com_asimov(); */
+  /* trata_colisao_do_bote_com_coral(); */
 }

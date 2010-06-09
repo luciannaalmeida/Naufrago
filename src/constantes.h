@@ -34,13 +34,15 @@
 #define ASIMOV -2
 #define BOTE -3
 
+#define NUMERO_DE_CORAIS 4
+
 #define y1_ASIMOV 300
 #define x1_ASIMOV 450
 #define y2_ASIMOV 400
 #define x2_ASIMOV 550
 
-#define ALTURA_BOTE 30
-#define MAX_VEL_BOTE   30
+#define ALTURA_BOTE  30
+#define MAX_VEL_BOTE 30
 
 #define MAX_LONGITUDE  1024
 #define MAX_LATITUDE   768
