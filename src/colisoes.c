@@ -1,3 +1,12 @@
+/*
+  EP3 - Laboratório de Programação     09/06/2010
+  
+  Integrantes:
+  Lucianna Thomaz Almeida      5893802  
+  Lucas Rodrigues Colucci      6920251
+  Cindy de Albuquerque         4954631
+*/
+
 #include "colisoes.h"
 
 int distancia_quadratica_entre_centros(naufrago elemento_A, naufrago elemento_B){
@@ -118,15 +127,15 @@ void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros)
 }
 
 
-int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, posicao_do_coral coral){
-  int distancia_abcissa = passageiro.coordenada_x - coral.x;
-  int distancia_ordenada = passageiro.coordenada_y - coral.y;
+int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, Coral coral){
+  int distancia_abcissa = passageiro.coordenada_x - coral.centro_x;
+  int distancia_ordenada = passageiro.coordenada_y - coral.centro_y;
   
   return (distancia_abcissa*distancia_abcissa) + (distancia_ordenada*distancia_ordenada);
 
 }
 
-int colidiu_com_coral(naufrago passageiro, posicao_do_coral coral){
+int colidiu_com_coral(naufrago passageiro, Coral coral){
   int distancia = distancia_quadratica_entre_coral_e_naufrago(passageiro, coral);
   int distancia_minima = distancia_quadratica_minima_entre_centros(RAIO_PASSAGEIRO, RAIO_CORAL);
   
@@ -140,7 +149,7 @@ void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
   
   for(i = 0; i < qtd_passageiros; i++){
     for(j = 0; j< 3; j++){
-      if(colidiu_com_coral(passageiros[i], vetor_posicao_dos_corais[j]))
+      if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
 	 passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
 	 }
     }

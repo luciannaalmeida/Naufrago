@@ -1,3 +1,12 @@
+/*
+  EP3 - Laboratório de Programação     09/06/2010
+  
+  Integrantes:
+  Lucianna Thomaz Almeida      5893802  
+  Lucas Rodrigues Colucci      6920251
+  Cindy de Albuquerque         4954631
+*/
+
 #ifndef CORAL_H
 #define CORAL_H
 
@@ -7,11 +16,11 @@
 #include "visualizacao_grafica.h"
 
 typedef struct coral{
-  int x;
-  int y;
-}posicao_do_coral;
+  int centro_x;
+  int centro_y;
+}Coral;
 
-posicao_do_coral vetor_posicao_dos_corais[3];
+Coral vetor_de_corais[3];
 
 /*inicia corais de uma determinada fase do jogo*/
 void inicia_corais(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);

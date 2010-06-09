@@ -71,6 +71,7 @@ int posicao_ocupada(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]
   return 1;
 }
 
+/* coloca o passageiro na posicao que foi atribuida a ele */
 void coloca_passageiro_no_oceano(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO;
 }

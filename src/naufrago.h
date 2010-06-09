@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-  EP3 - Laboratório de Programação     9/05/2010
-=======
   EP3 - Laboratório de Programação     09/06/2010
->>>>>>> cf29b0adaea92f0d9b8ab568fd4171f9e3726b43
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  

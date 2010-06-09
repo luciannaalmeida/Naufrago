@@ -1,3 +1,12 @@
+/*
+  EP3 - Laboratório de Programação     09/06/2010
+  
+  Integrantes:
+  Lucianna Thomaz Almeida      5893802  
+  Lucas Rodrigues Colucci      6920251
+  Cindy de Albuquerque         4954631
+*/
+
 #ifndef COLISOES_H
 #define COLISOES_H
 
@@ -25,9 +34,9 @@ int colidiram(naufrago passageiro_A, naufrago passageiro_B);
 /* Inverte a direcao dos passageiros que colidiram */
 void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros);
 
-int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, posicao_do_coral coral);
+int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, Coral coral);
 
-int colidiu_com_coral(naufrago passageiro, posicao_do_coral coral);
+int colidiu_com_coral(naufrago passageiro, Coral coral);
 
 void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros);
 
