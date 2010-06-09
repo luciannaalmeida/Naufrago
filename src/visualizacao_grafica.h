@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <allegro.h>
 #include "constantes.h"
+#include "bote.h"
 
 
 
@@ -27,5 +28,6 @@ void desenha_passageiro(BITMAP *destino, int x, int y);
 void desenha_colisao(BITMAP *destino, int x, int y);
 void desenha_coral(BITMAP *destino, int x, int y);
 void desenha_asimov(BITMAP *destino, int y1, int x1, int y2, int x2);
+void desenha_botes(BITMAP *destino, Bote botes[]);
 
 #endif

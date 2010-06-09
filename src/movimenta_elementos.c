@@ -81,6 +81,8 @@ naufrago atualiza_posicao_do_elemento_no_oceano(naufrago passageiro, int oceano[
 void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros, int oceano[][MAX_LONGITUDE]){
   int i;
 
+
+
   for(i = 0; i < qtd_passageiros; i++){
 
     /* Se nao houve colisao e nao passou tempo suficiente para o passageiro mudar de lugar, tempo_no_lugar eh acrescido */

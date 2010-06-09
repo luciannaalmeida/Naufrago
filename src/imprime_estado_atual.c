@@ -25,6 +25,8 @@ void imprime_no_modo_grafico(int fase, int oceano[][MAX_LONGITUDE]){
 
   imprime_asimov(screen);
   
+  imprime_botes(screen);
+
   for(y = 0; y < MAX_LATITUDE; y++){
     for(x = 0; x < MAX_LONGITUDE; x++){
       if(oceano[y][x] == PASSAGEIRO)

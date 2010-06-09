@@ -94,8 +94,18 @@ void desenha_asimov(BITMAP *destino, int y1, int x1, int y2, int x2){
   rectfill(destino, x1, y1, x2, y2, makecol(0, 0, 0)); /* retangulo */
 }
 
-void desenha_barco(BITMAP *destino, int y1, int x1, int y2, int x2){
+void desenha_botes(BITMAP *destino, Bote botes[]){
   /*void rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color); */
   /*int makecol(int r, int g, int b); */
-  rectfill(destino, x1, y1, x2, y2, makecol(0, 0, 0)); /* retangulo */
+  int x, y;
+
+  /* desenha bote 0 */
+  x = botes[0].coordenada_x;
+  y = botes[0].coordenada_y;
+  triangle(destino, (x - ALTURA_BOTE/3), y, (x + ALTURA_BOTE/3), y, x, (y - ALTURA_BOTE), makecol(100, 15, 20));
+
+  /* desenha bote 1 */
+  x = botes[1].coordenada_x;
+  y = botes[1].coordenada_y;
+  triangle(destino, (x - ALTURA_BOTE/3), y, (x + ALTURA_BOTE/3), y, x, (y - ALTURA_BOTE), makecol(20, 80, 40));
 }

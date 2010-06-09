@@ -7,16 +7,16 @@
   Cindy de Albuquerque         4954631
 */
 
-#ifndef IMPRIME_ESTADO_ATUAL_H
-#define IMPRIME_ESTADO_ATUAL_H
+#ifndef ASIMOV_H
+#define ASIMOV_H
 
-#include "constantes.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <allegro.h>
 #include "visualizacao_grafica.h"
-#include "coral.h"
-#include "asimov.h"
 
-void imprime_oceano(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
+int esta_na_asimov(int y, int x);
+void cria_asimov(int oceano[][MAX_LONGITUDE]);
+void imprime_asimov(BITMAP *destino);
 
 #endif

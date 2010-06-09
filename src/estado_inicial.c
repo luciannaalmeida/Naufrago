@@ -29,6 +29,8 @@ naufrago* gera_estado_inicial_oceano(int fase, int oceano[][MAX_LONGITUDE]){
   inicia_corais(fase, oceano);
 
   cria_asimov(oceano);
+
+  cria_botes();
   
   /* Gera todos os passageiros iniciais */
   for(i = 0; i < QTD_INICIAL_PASSAGEIROS; ++i )

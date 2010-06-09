@@ -32,12 +32,15 @@
 #define PASSAGEIRO 1
 #define CORAL -1
 #define ASIMOV -2
-#define BARCO -3
+#define BOTE -3
 
 #define y1_ASIMOV 300
 #define x1_ASIMOV 450
 #define y2_ASIMOV 400
 #define x2_ASIMOV 550
+
+#define ALTURA_BOTE 30
+#define VEL_BOTE   10
 
 #define MAX_LONGITUDE  1024
 #define MAX_LATITUDE   768
