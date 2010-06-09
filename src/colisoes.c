@@ -127,10 +127,10 @@ void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros)
 
 /* calcula a distancia quadratica entre os centros do coral e do naufrago */
 int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, Coral coral){
-  int distancia_abcissa = passageiro.coordenada_x - coral.centro_x;
-  int distancia_ordenada = passageiro.coordenada_y - coral.centro_y;
+  int distancia_x = passageiro.coordenada_x - coral.centro_x;
+  int distancia_y = passageiro.coordenada_y - coral.centro_y;
 
-  return (distancia_abcissa*distancia_abcissa) + (distancia_ordenada*distancia_ordenada);
+  return (distancia_x*distancia_x) + (distancia_y*distancia_y);
 }
 
 /* verifica se houve colisao entre o passageiro e o coral */

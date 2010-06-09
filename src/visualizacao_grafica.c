@@ -74,7 +74,6 @@ void desenha_passageiro(BITMAP *destino, int y, int x){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int  r, int g, int b); */
   circlefill(destino, x, y, RAIO_PASSAGEIRO, makecol(0, 255, 0)); /*green circle*/
-  
 }
 
 void desenha_colisao(BITMAP *destino, int y, int x){
@@ -87,4 +86,10 @@ void desenha_coral(BITMAP *destino, int y, int x){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int r, int g, int b); */
   circlefill(destino, x, y, RAIO_CORAL, makecol(255, 100, 50)); /* circle*/
+}
+
+void desenha_pedaco_de_coral(BITMAP *destino, int y, int x){
+  /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
+  /*int makecol(int  r, int g, int b); */
+  circlefill(destino, x, y, 1, makecol(0, 0, 0)); /*red circle*/
 }

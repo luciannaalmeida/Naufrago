@@ -10,7 +10,7 @@
 #include "coral.h"
 
 /*inicia corais de uma determinada fase do jogo*/
-void inicia_corais(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+void inicia_corais(int fase, int oceano[][MAX_LONGITUDE]){
   switch (fase){
   case 1: 
     fase1(oceano);
@@ -20,37 +20,41 @@ void inicia_corais(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
 }
 
 /* verifica se uma posicao esta fora do oceano */
-int esta_dentro_do_oceano(int x, int y){
+int esta_dentro_do_oceano(int y, int x){
   if(x < 0 || x >= MAX_LONGITUDE ||
      y < 0 || y >= MAX_LATITUDE)
     return 0;
   return 1;
 }
 
-void coloca_coral_no_oceano(int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
-  /* int x, y, cont; */
-  /* int centro_x, centro_y; */
-  /* centro_x = vetor_de_corais[id].centro_x; */
-  /* centro_y = vetor_de_corais[id].centro_y; */
+/* calcula a distancia quadratica entre o centro do coral e o ponto em analise */
+int distancia_quadratica_entre_centro_do_coral_e_ponto(int y, int x, Coral coral){
+  int distancia_x = x - coral.centro_x;
+  int distancia_y = y - coral.centro_y;
 
-  /* /\* marca a parte superio do coral com a constante CORAL no oceano *\/ */
-  /* for(cont = 0, y = (centro_y - RAIO_CORAL); y <= centro_y; y++, cont++){ */
-  /* 	for(x = (centro_x - cont); x <= (centro_x + cont); x++){ */
-  /* 	  if(esta_dentro_do_oceano(x, y)){ */
-  /* 		oceano[y][x] = CORAL; */
-  /* 	  } */
-  /* 	} */
-  /* } */
-  /* /\* marca a parte inferior do coral com a constante CORAL no oceano *\/ */
-  /* for(cont = 0, y = (centro_y + RAIO_CORAL); y > centro_y; y--, cont++){ */
-  /* 	for(x = (centro_x - cont); x <= (centro_x + cont); x++){ */
-  /* 	  if(esta_dentro_do_oceano(x, y)) */
-  /* 		oceano[y][x] = CORAL; */
-  /* 	} */
-  /* } */
+  return (distancia_x*distancia_x) + (distancia_y*distancia_y);
 }
 
-void cria_coral(int id, int coordenada_y, int coordenada_x, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+/* verifica se o ponto em analise eh interno ao coral */
+int esta_dentro_do_coral(int y, int x, Coral coral ){
+  if(distancia_quadratica_entre_centro_do_coral_e_ponto(y, x, coral) <= (RAIO_CORAL * RAIO_CORAL))
+	return 1;
+  return 0;
+}
+
+void coloca_coral_no_oceano(int id, int oceano[][MAX_LONGITUDE]){
+  int x, y;
+  int centro_x, centro_y;
+  centro_x = vetor_de_corais[id].centro_x;
+  centro_y = vetor_de_corais[id].centro_y;
+  
+  for(y = (centro_y - RAIO_CORAL); y <= (centro_y + RAIO_CORAL); y++)
+	for(x = (centro_x - RAIO_CORAL); x <= (centro_x + RAIO_CORAL); x++)
+	  if(esta_dentro_do_oceano(y, x) && esta_dentro_do_coral(y, x, vetor_de_corais[id]))
+		oceano[y][x] = CORAL;
+}
+
+void cria_coral(int id, int coordenada_y, int coordenada_x, int oceano[][MAX_LONGITUDE]){
   vetor_de_corais[id].centro_y = coordenada_y;
   vetor_de_corais[id].centro_x = coordenada_x;
   coloca_coral_no_oceano(id, oceano);
