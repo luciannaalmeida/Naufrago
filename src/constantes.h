@@ -1,5 +1,5 @@
 /*
-  EP3 - Laboratório de Programação     9/06/2010
+  EP2 - Laboratório de Programação     10/05/2010
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  
@@ -18,8 +18,8 @@
 #define RAIO_CORAL                 100
 
 #define FREQ_GERACAO_PASSAGEIROS   10
-#define QTD_INICIAL_PASSAGEIROS    10
-#define QTD_MAXIMA_PASSAGEIROS    20
+#define QTD_INICIAL_PASSAGEIROS    60
+#define QTD_MAXIMA_PASSAGEIROS    100
 
 /* Valores padrão para inicialização do Allegro.*/
 

@@ -68,7 +68,7 @@ void jogo(int oceano[][MAX_LONGITUDE], naufrago *passageiros){
   /* Enquanto nao eh o fim do jogo */
   for(tempo = 1; (tempo < 500) && (!key[KEY_ESC]); tempo++){
     /* Tempo esperado para ajudar a impressao */
-    usleep(500000);  
+    usleep(5000);  
     
     
     imprime_oceano(oceano);

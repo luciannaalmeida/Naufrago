@@ -1,5 +1,5 @@
 /*
-  EP3 - Laboratório de Programação     09/06/2010
+  EP2 - Laboratório de Programação     10/05/2010
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  
@@ -36,7 +36,7 @@ void imprime_no_modo_grafico(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
 
 /* Imprime o estado atual do oceano */
 void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
-  int i, j; 
+  /* int i, j;  */
   clear_terminal();
   /* for(i = 0; i < MAX_LATITUDE; ++i){ */
   /*   for(j = 0; j < MAX_LONGITUDE; ++j){ */
