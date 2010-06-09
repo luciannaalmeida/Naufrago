@@ -15,15 +15,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <allegro.h>
+#include <time.h>
 #include "naufrago.h"
 #include "visualizacao_grafica.h"
 #include "imprime_estado_atual.h"
 #include "movimenta_elementos.h"
+#include "estado_inicial.h"
 
 void seta_frequencia_geracao_passageiros(float frequencia);
 void seta_quantidade_inicial_passageiros(int quantidade_inicial);
 void seta_quantidade_maxima_passageiros(int quantidade_maxima);
-void jogo(int oceano[MAX_LATITUDE][MAX_LONGITUDE], naufrago *passageiros);
+void jogo();
 void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]);
 
 #endif

@@ -23,7 +23,7 @@ typedef struct naufrago {
   int houve_colisao;
 }naufrago;
 
-
+int esta_no_passageiro(int y, int x, naufrago passageiro);
 void seta_velocidade_maxima_passageiros(float velocidade_maxima);
 void seta_velocidade_minima_passageiros(float velocidade_minima);
 void seta_velocidade_media_passageiros(float velocidade_media);

@@ -12,8 +12,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "coral.h"
 #include "naufrago.h"
+#include "coral.h"
+#include "asimov.h"
 
 int distancia_quadratica_entre_centros(naufrago elemento_A, naufrago elemento_B);
 
@@ -40,5 +41,6 @@ int colidiu_com_coral(naufrago passageiro, Coral coral);
 
 void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros);
 
+void trata_colisao_com_asimov(naufrago* passageiros, int qtd_passageiros);
 
 #endif

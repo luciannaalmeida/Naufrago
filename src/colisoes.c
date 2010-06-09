@@ -150,10 +150,27 @@ void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
   for(i = 0; i < qtd_passageiros; i++){
     for(j = 0; j< 3; j++){
       if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
-	 passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+		passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
     }
   }
 }
 
+int colidiu_com_asimov(naufrago passageiro){
+  int y, x, centro_y, centro_x;
+  centro_y = passageiro.coordenada_y;
+  centro_x = passageiro.coordenada_x;
+  for(y = (centro_y - RAIO_PASSAGEIRO); y <= (centro_y + RAIO_PASSAGEIRO); y++)
+	for(x = (centro_x - RAIO_PASSAGEIRO); x <= (centro_x + RAIO_PASSAGEIRO); x++)
+	  if(esta_dentro_do_oceano(y, x) && esta_no_passageiro(y, x, passageiro) && esta_na_asimov(y,x))
+		return 1;
+  return 0;
+}
 
+void trata_colisao_com_asimov(naufrago* passageiros, int qtd_passageiros){
+  int i;
+  for(i = 0; i < qtd_passageiros; i++){
+	if(colidiu_com_asimov(passageiros[i]))
+	  passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+  }
+}
 

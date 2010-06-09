@@ -13,6 +13,22 @@ int velocidade_maxima_passageiros = VEL_MAX_PASSAGEIROS;
 int velocidade_minima_passageiros = VEL_MIN_PASSAGEIROS;
 int velocidade_media_passageiros;
 
+
+/* calcula a distancia quadratica entre o centro do passageiro e o ponto em analise */
+int distancia_quadratica_entre_centro_do_passageiro_e_ponto(int y, int x, naufrago passageiro){
+  int distancia_x = x - passageiro.coordenada_x;
+  int distancia_y = y - passageiro.coordenada_y;
+
+  return (distancia_x*distancia_x) + (distancia_y*distancia_y);
+}
+
+/* verifica se o ponto em analise eh interno ao passageiro */
+int esta_no_passageiro(int y, int x, naufrago passageiro){
+  if(distancia_quadratica_entre_centro_do_passageiro_e_ponto(y, x, passageiro) <= (RAIO_PASSAGEIRO * RAIO_PASSAGEIRO))
+	return 1;
+  return 0;  
+}
+
 /* Seta velocidade_maxima_passageiros para os testes */
 void seta_velocidade_maxima_passageiros(float velocidade_maxima){
   velocidade_maxima_passageiros = (int)(velocidade_maxima * 100);

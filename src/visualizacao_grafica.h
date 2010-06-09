@@ -26,6 +26,6 @@ BITMAP* desenha_oceano();
 void desenha_passageiro(BITMAP *destino, int x, int y);
 void desenha_colisao(BITMAP *destino, int x, int y);
 void desenha_coral(BITMAP *destino, int x, int y);
-void desenha_pedaco_de_coral(BITMAP *destino, int y, int x);
+void desenha_asimov(BITMAP *destino, int y1, int x1, int y2, int x2);
 
 #endif

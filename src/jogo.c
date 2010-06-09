@@ -54,24 +54,27 @@ void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]
 }
 
 /* Funcao para rodar o jogo */
-void jogo(int oceano[][MAX_LONGITUDE], naufrago *passageiros){
+void jogo(){
   int tempo;
+  int fase = 1;
+  int oceano[MAX_LATITUDE][MAX_LONGITUDE];
+  naufrago *passageiros;
+
+  /* Gerar as condicoes iniciais do oceano */
+  passageiros = gera_estado_inicial_oceano(fase, oceano);
 
   /* cria e inicializa a janela do jogo */
   inicializa_janela_padrao();
-
-  imprime_oceano(oceano);
 
   /* Inicializa a quantidade inicial de passageiros no jogo */
   qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;
 
   /* Enquanto nao eh o fim do jogo */
-  for(tempo = 1; (tempo < 500) && (!key[KEY_ESC]); tempo++){
+  for(tempo = 1; (tempo < 5000) && (!key[KEY_ESC]); tempo++){
     /* Tempo esperado para ajudar a impressao */
     usleep(5000);  
     
-    
-    imprime_oceano(oceano);
+    imprime_oceano(fase, oceano);
     
     /* Realiza uma rodada do jogo */
     atualiza_jogo(passageiros, tempo, oceano);

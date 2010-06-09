@@ -88,8 +88,14 @@ void desenha_coral(BITMAP *destino, int y, int x){
   circlefill(destino, x, y, RAIO_CORAL, makecol(255, 100, 50)); /* circle*/
 }
 
-void desenha_pedaco_de_coral(BITMAP *destino, int y, int x){
-  /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
-  /*int makecol(int  r, int g, int b); */
-  circlefill(destino, x, y, 1, makecol(0, 0, 0)); /*red circle*/
+void desenha_asimov(BITMAP *destino, int y1, int x1, int y2, int x2){
+  /*void rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color); */
+  /*int makecol(int r, int g, int b); */
+  rectfill(destino, x1, y1, x2, y2, makecol(0, 0, 0)); /* retangulo */
+}
+
+void desenha_barco(BITMAP *destino, int y1, int x1, int y2, int x2){
+  /*void rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color); */
+  /*int makecol(int r, int g, int b); */
+  rectfill(destino, x1, y1, x2, y2, makecol(0, 0, 0)); /* retangulo */
 }

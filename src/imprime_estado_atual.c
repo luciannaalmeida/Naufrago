@@ -14,13 +14,16 @@ void clear_terminal(){
   printf("\033[2J\033[0;0f");
 }
 
-void imprime_no_modo_grafico(int oceano[][MAX_LONGITUDE]){
+void imprime_no_modo_grafico(int fase, int oceano[][MAX_LONGITUDE]){
   int y,x;
   /* BITMAP * tela = desenha_oceano();  */
   clear_to_color( screen, makecol( 0, 0, 255));
   
   acquire_screen();
-  inicia_corais(1, oceano);
+
+  escolhe_fase_para_imprimir(fase);
+
+  imprime_asimov(screen);
   
   for(y = 0; y < MAX_LATITUDE; y++){
     for(x = 0; x < MAX_LONGITUDE; x++){
@@ -35,7 +38,7 @@ void imprime_no_modo_grafico(int oceano[][MAX_LONGITUDE]){
 }
 
 /* Imprime o estado atual do oceano */
-void imprime_oceano(int oceano[][MAX_LONGITUDE]){
+void imprime_oceano(int fase, int oceano[][MAX_LONGITUDE]){
   /* int i, j;  */
   /* clear_terminal(); */
   /* for(i = 0; i < MAX_LATITUDE; ++i){ */
@@ -53,5 +56,5 @@ void imprime_oceano(int oceano[][MAX_LONGITUDE]){
   /*   printf("\n"); */
   /* } */
 
-  imprime_no_modo_grafico(oceano);
+  imprime_no_modo_grafico(fase, oceano);
 }

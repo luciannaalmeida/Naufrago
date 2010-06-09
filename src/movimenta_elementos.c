@@ -93,7 +93,7 @@ void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros,
       /* Verifica se o passageiro havia colidido com alguma coisa na ultima rodada. Se sim, sua direcao nao sera recalculada */	  
       /* Se nao havia colidido, calcula nova direcao normalmente */
       if(passageiros[i].houve_colisao == 0)
-	calcula_nova_direcao(passageiros, i, oceano);
+		calcula_nova_direcao(passageiros, i, oceano);
       
       /* Seta houve_colisao e tempo_no_lugar */
       passageiros[i].houve_colisao = 0;
@@ -106,4 +106,6 @@ void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros,
   
   /* Verifica e trata as colisoes */
   trata_colisao_entre_passageiros(passageiros, qtd_passageiros);
+  trata_colisao_com_coral(passageiros, qtd_passageiros);
+  trata_colisao_com_asimov(passageiros, qtd_passageiros);
 }

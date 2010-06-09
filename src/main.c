@@ -28,8 +28,6 @@ void imprime_help(){
 int main(int argc, char* argv[]){
   int semente, quantidade_inicial_passageiros, quantidade_maxima_passageiros;
   float frequencia_geracao_passageiros, velocidade_media_passageiros;
-  int oceano[MAX_LATITUDE][MAX_LONGITUDE];
-  naufrago *passageiros;
   int i;
 
   /* Verifica os valores passados pelo usuario:
@@ -83,12 +81,9 @@ int main(int argc, char* argv[]){
 
   /* Inicializa o vetor de direcoes */
   inicializa_vetor_de_direcoes();
-
-  /* Gerar as condicoes iniciais do oceano */
-  passageiros = gera_estado_inicial_oceano(oceano);
     
   /* Rodar o jogo */
-  jogo(oceano, passageiros);
+  jogo();
 
 
   return 0;

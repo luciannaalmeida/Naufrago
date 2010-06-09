@@ -18,7 +18,7 @@
 #include "naufrago.h"
 
 
-naufrago * gera_estado_inicial_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
+naufrago * gera_estado_inicial_oceano(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 void coloca_agua_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 
 

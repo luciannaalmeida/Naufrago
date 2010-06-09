@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic -ansi -O2 -g -ggdb3 -lalleg-4.2.2 
-dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o coral.o colisoes.o
-objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o lib/coral.o lib/colisoes.o
+dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o coral.o colisoes.o asimov.o
+objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o lib/coral.o lib/colisoes.o lib/asimov.o
 
 all: lib ${dependencies}
 	clear
@@ -32,6 +32,10 @@ coral.o: lib src/coral.c src/coral.h
 
 colisoes.o: lib src/colisoes.c src/colisoes.c
 	gcc ${CFLAGS} -c src/colisoes.c -o lib/colisoes.o
+
+asimov.o: lib src/asimov.c src/asimov.c
+	gcc ${CFLAGS} -c src/asimov.c -o lib/asimov.o
+
 
 testes: estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o src/minunit.c
 	gcc ${CFLAGS} src/minunit.c lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o -o teste

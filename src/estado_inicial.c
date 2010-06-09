@@ -18,13 +18,17 @@ void coloca_agua_no_oceano(int oceano[][MAX_LONGITUDE]){
 }
 
 /* Funcao que gera as condicoes iniciais do oceano */
-naufrago* gera_estado_inicial_oceano(int oceano[][MAX_LONGITUDE]){
+naufrago* gera_estado_inicial_oceano(int fase, int oceano[][MAX_LONGITUDE]){
   int i;
   /* Cria vetor de passageiros, com o valor da constante QTD_MAXIMA_PASSAGEIROS */
   naufrago *passageiros = malloc(QTD_MAXIMA_PASSAGEIROS * sizeof(struct naufrago));
   
   /* Chama funcao que popula o oceano com agua */
   coloca_agua_no_oceano(oceano);
+
+  inicia_corais(fase, oceano);
+
+  cria_asimov(oceano);
   
   /* Gera todos os passageiros iniciais */
   for(i = 0; i < QTD_INICIAL_PASSAGEIROS; ++i )

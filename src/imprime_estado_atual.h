@@ -14,8 +14,8 @@
 #include <stdio.h>
 #include "visualizacao_grafica.h"
 #include "coral.h"
+#include "asimov.h"
 
-
-void imprime_oceano(int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
+void imprime_oceano(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 
 #endif

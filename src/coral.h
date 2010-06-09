@@ -20,15 +20,18 @@ typedef struct coral{
   int centro_y;
 }Coral;
 
-Coral vetor_de_corais[3];
+Coral vetor_de_corais[10];
 
 /*inicia corais de uma determinada fase do jogo*/
 void inicia_corais(int fase, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
   
 /*desenha os corais da fase 1*/
-void fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
+void inicia_fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 
+/* escolhe fase para imprimir */
+void escolhe_fase_para_imprimir(int fase);
 
+int esta_dentro_do_oceano(int y, int x);
 
 
 #endif

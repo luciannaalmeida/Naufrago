@@ -13,7 +13,7 @@
 void inicia_corais(int fase, int oceano[][MAX_LONGITUDE]){
   switch (fase){
   case 1: 
-    fase1(oceano);
+    inicia_fase1(oceano);
     break;
     /*futura implementacao para mais de uma fase*/
   }
@@ -58,11 +58,10 @@ void cria_coral(int id, int coordenada_y, int coordenada_x, int oceano[][MAX_LON
   vetor_de_corais[id].centro_y = coordenada_y;
   vetor_de_corais[id].centro_x = coordenada_x;
   coloca_coral_no_oceano(id, oceano);
-  desenha_coral(screen, coordenada_y, coordenada_x);
 }
 
 /*desenha os corais da fase 1*/
-void fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
+void inicia_fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   int quant_de_corais = 0;
 
   cria_coral(quant_de_corais++,    0,    0, oceano);
@@ -73,3 +72,19 @@ void fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   /* cria_coral(quant_de_corais++,  1024,  0, oceano); */
   /* cria_coral(quant_de_corais++, 1024, 768, oceano); */
 }
+
+
+void imprime_fase(int quant_corais){
+  int i;
+  for(i = 0; i < quant_corais; i++)
+	desenha_coral(screen, vetor_de_corais[i].centro_y, vetor_de_corais[i].centro_x);
+}
+
+void escolhe_fase_para_imprimir(int fase){
+ switch (fase){
+  case 1: 
+    imprime_fase(4);
+    break;
+  } 
+}
+
