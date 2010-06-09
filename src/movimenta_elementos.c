@@ -51,6 +51,7 @@ void calcula_nova_direcao(naufrago* passageiros, int i, int oceano[MAX_LATITUDE]
   }
 }
 
+
 /* Calcula a nova posicao do elemento de acordo com a sua direcao */
 naufrago calcula_nova_posicao_do_elemento(naufrago passageiro){
   passageiro.coordenada_x += direcoes[passageiro.direcao].deslocamento_em_x;
@@ -75,23 +76,14 @@ naufrago atualiza_posicao_do_elemento_no_oceano(naufrago passageiro, int oceano[
   return passageiro;
 }
 
-
-
-/* Atualiza a posicao de todos os elementos */
-void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros, int oceano[][MAX_LONGITUDE]){
+void movimenta_passageiros(naufrago *passageiros, int qtd_passageiros, int oceano[][MAX_LONGITUDE]){
   int i;
-
-
-
   for(i = 0; i < qtd_passageiros; i++){
-
     /* Se nao houve colisao e nao passou tempo suficiente para o passageiro mudar de lugar, tempo_no_lugar eh acrescido */
     if((passageiros[i].houve_colisao == 0) && (passageiros[i].tempo_no_lugar == (100 - passageiros[i].modulo_velocidade + 1))){
       passageiros[i].tempo_no_lugar ++;
     }
-    
-    else{
-      
+    else{ 
       /* Verifica se o passageiro havia colidido com alguma coisa na ultima rodada. Se sim, sua direcao nao sera recalculada */	  
       /* Se nao havia colidido, calcula nova direcao normalmente */
       if(passageiros[i].houve_colisao == 0)
@@ -110,4 +102,50 @@ void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros,
   trata_colisao_entre_passageiros(passageiros, qtd_passageiros);
   trata_colisao_com_coral(passageiros, qtd_passageiros);
   trata_colisao_com_asimov(passageiros, qtd_passageiros);
+}
+
+
+
+/* /\* Atualiza a posicao do elemento no oceano *\/ */
+/* naufrago atualiza_posicao_do_elemento_no_oceano(naufrago passageiro, int oceano[][MAX_LONGITUDE]){ */
+/*   /\* Desmarca a posicao antiga do passageiro *\/ */
+/*   oceano[passageiro.coordenada_y][passageiro.coordenada_x] -= PASSAGEIRO; */
+/*   /\* Calcula a nova posicao do passageiro *\/ */
+/*   passageiro = calcula_nova_posicao_do_elemento(passageiro); */
+/*   /\* Marca a nova posicao do passageiro no oceano *\/ */
+/*   oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO; */
+	
+/*   return passageiro; */
+/* } */
+
+
+/* Calcula a nova posicao do bote de acordo com a sua direcao */
+void calcula_nova_posicao_do_bote(int id){
+  int direcao_do_bote, novo_x_da_base, novo_y_da_base;
+
+  /* pega direcao do bote */
+  direcao_do_bote = pega_direcao_do_bote(id);
+
+  /* atualiza o x da base do bote */
+  novo_x_da_base = pega_x_da_base_do_bote(id) + direcoes[direcao_do_bote].deslocamento_em_x;
+  seta_x_da_base_do_bote(id, novo_x_da_base);
+
+  /* atualiza o y da base do bote */
+  novo_y_da_base = pega_y_da_base_do_bote(id) + direcoes[direcao_do_bote].deslocamento_em_y;
+  seta_y_da_base_do_bote(id, novo_y_da_base);
+}
+
+void movimenta_botes(naufrago *passageiros, int qnt_passageiros, int oceano[][MAX_LONGITUDE]){
+  int id;
+  for(id = 0; id < 2; id++){
+	calcula_nova_posicao_do_bote(id);
+	trata_colisoes_do_bote(id);
+  }
+}
+
+/* Atualiza a posicao de todos os elementos */
+void atualiza_posicoes_dos_elementos(naufrago *passageiros, int qtd_passageiros, int oceano[][MAX_LONGITUDE]){
+  movimenta_botes(passageiros, qtd_passageiros, oceano);
+  movimenta_passageiros(passageiros, qtd_passageiros, oceano);
+ 
 }

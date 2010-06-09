@@ -174,3 +174,5 @@ void trata_colisao_com_asimov(naufrago* passageiros, int qtd_passageiros){
   }
 }
 
+void trata_colisoes_do_bote(int id){  
+}

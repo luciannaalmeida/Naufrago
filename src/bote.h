@@ -11,6 +11,7 @@ typedef struct bote {
   int modulo_velocidade;
   int tempo_no_lugar;
   int direcao;
+  int numero_de_resgates;
 }Bote;
 
 #include "visualizacao_grafica.h"
@@ -20,5 +21,15 @@ Bote botes[2];
 void cria_botes();
 
 void imprime_botes(BITMAP *destino);
+
+/* funcoes de acesso as informacoes do bote */
+int pega_y_da_base_do_bote(int id);
+int pega_x_da_base_do_bote(int id);
+int pega_direcao_do_bote(int id);
+
+/* funcoes de atualizacoes das informacoes do bote*/
+void seta_direcao_do_bote(int id, int nova_direcao);
+void seta_y_da_base_do_bote(int id, int novo_y_da_base);
+void seta_x_da_base_do_bote(int id, int novo_x_da_base);
 
 #endif
