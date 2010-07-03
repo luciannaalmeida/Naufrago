@@ -77,9 +77,6 @@ void inicia_fase1(int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   cria_coral(quant_de_corais++,    0, 1024, oceano);
   cria_coral(quant_de_corais++,  768,    0, oceano);
   cria_coral(quant_de_corais++,  768, 1024, oceano);
-  /* cria_coral(quant_de_corais++,    0, 384, oceano); */
-  /* cria_coral(quant_de_corais++,  1024,  0, oceano); */
-  /* cria_coral(quant_de_corais++, 1024, 768, oceano); */
 }
 
 

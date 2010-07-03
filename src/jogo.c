@@ -9,10 +9,19 @@
 
 #include "jogo.h"
 
+int oceano[MAX_LATITUDE][MAX_LONGITUDE];
 int qtd_atual_passageiros;
 float frequencia_geracao_passageiros;
 int quantidade_inicial_passageiros;
 int quantidade_maxima_passageiros;
+
+int pega_quantidade_de_passageiros(){
+  return qtd_atual_passageiros;
+}
+
+void tira_passageiro_do_oceano(int y, int x){
+  oceano[y][x] = AGUA;
+}
 
 /* Transforma a frequencia em periodo */
 int periodo_geracao_passageiros(float frequencia_geracao_passageiros){
@@ -57,8 +66,9 @@ void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]
 void jogo(){
   int tempo;
   int fase = 1;
-  int oceano[MAX_LATITUDE][MAX_LONGITUDE];
   naufrago *passageiros;
+  double tempo_inicial, tempo_final, diferenca_de_tempo = 0.0;
+  
 
   /* Gerar as condicoes iniciais do oceano */
   passageiros = gera_estado_inicial_oceano(fase, oceano);
@@ -71,13 +81,17 @@ void jogo(){
 
   /* Enquanto nao eh o fim do jogo */
   for(tempo = 1; (tempo < 5000) && (!key[KEY_ESC]); tempo++){
-    /* Tempo esperado para ajudar a impressao */
-    usleep(5000);  
+    tempo_inicial = clock();
+	/* Tempo esperado para ajudar a impressao */
+    usleep(10000 - diferenca_de_tempo);  
     
     imprime_oceano(fase, oceano);
     
     /* Realiza uma rodada do jogo */
     atualiza_jogo(passageiros, tempo, oceano);
+    tempo_final = clock();	
+	if(CLOCKS_PER_SEC < 1.0)
+	  diferenca_de_tempo = (tempo_final - tempo_inicial) / CLOCKS_PER_SEC ;
   }
   
   free(passageiros);

@@ -9,6 +9,8 @@
 
 #include "bote.h"
 
+Bote botes[2];
+
 void cria_bote(int id, int y, int x){
   botes[id].coordenada_y = y;
   botes[id].coordenada_x = x;
@@ -49,4 +51,16 @@ void seta_y_da_base_do_bote(int id, int novo_y_da_base){
 
 void seta_x_da_base_do_bote(int id, int novo_x_da_base){
   botes[id].coordenada_x = novo_x_da_base;
+}
+
+void aumenta_numero_de_resgates(int id){
+  (botes[id].numero_de_resgates)++;
+}
+
+Bote pega_bote(int id){
+  return botes[id];
+}
+
+void troca_direcao_do_bote(int id, int direcao){
+  botes[id].direcao = direcao;
 }

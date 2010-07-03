@@ -9,9 +9,9 @@
 
 #include "colisoes.h"
 
-int distancia_quadratica_entre_centros(naufrago elemento_A, naufrago elemento_B){
-  int distancia_x = elemento_A.coordenada_x - elemento_B.coordenada_x;
-  int distancia_y = elemento_A.coordenada_y - elemento_B.coordenada_y;
+int distancia_quadratica_entre_centros(int x_elemento_A, int y_elemento_A, int x_elemento_B, int y_elemento_B){
+  int distancia_x = x_elemento_A - x_elemento_B;
+  int distancia_y = y_elemento_A - y_elemento_B;
   
   return (distancia_x * distancia_x) + (distancia_y * distancia_y);
 }
@@ -73,22 +73,12 @@ void troca_vetor_velocidade_de_passageiros_com_mesma_direcao(naufrago *passageir
 int colidiram(naufrago passageiro_A, naufrago passageiro_B){
   int raio, distancia, distancia_minima;
   raio = RAIO_PASSAGEIRO;
-  distancia = distancia_quadratica_entre_centros(passageiro_A, passageiro_B);
+  distancia = distancia_quadratica_entre_centros(passageiro_A.coordenada_x, passageiro_A.coordenada_y, 
+												 passageiro_B.coordenada_x, passageiro_B.coordenada_y);
   distancia_minima = distancia_quadratica_minima_entre_centros(raio, raio);
 
-  if (distancia <= distancia_minima){
-    /* printf("distancia entre centros - %d         distancia minima - %d\n", distancia, distancia_minima); */
-    /* printf("passageiro_A.coordenada_x %d passageiro_A.coordenada_y %d \n"  */
-	/*    "passageiro_B.coordenada_x %d passageiro_B.coordenada_y %d \n" */
-	/*    "passageiro_A.direcao %d  passageiro_B.direcao %d\n" */
-	/*    "passageiro_A.id %d passageiro_B.id %d\n\n", */
-	/*    passageiro_A.coordenada_x , passageiro_A.coordenada_y ,    */
-	/*    passageiro_B.coordenada_x , passageiro_B.coordenada_y , */
-	/*    passageiro_A.direcao,  passageiro_B.direcao, */
-	/*    passageiro_A.id, passageiro_B.id); */
-    
+  if (distancia <= distancia_minima)
     return 1;
-  }
   return 0;
 }
 
@@ -137,8 +127,8 @@ int distancia_quadratica_entre_coral_e_naufrago(naufrago passageiro, Coral coral
 int colidiu_com_coral(naufrago passageiro, Coral coral){
   int distancia = distancia_quadratica_entre_coral_e_naufrago(passageiro, coral);
   int distancia_minima = distancia_quadratica_minima_entre_centros(RAIO_PASSAGEIRO, RAIO_CORAL);
-  
-  if(distancia < distancia_minima)
+
+  if(distancia <= distancia_minima)
     return 1;
   return 0;
 }
@@ -146,7 +136,6 @@ int colidiu_com_coral(naufrago passageiro, Coral coral){
 /* traca a colisao de um passageiro com um coral */
 void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
   int i, j;
-
   for(i = 0; i < qtd_passageiros; i++){
     for(j = 0; j< NUMERO_DE_CORAIS; j++){
       if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
@@ -204,9 +193,78 @@ void trata_colisao_do_bote_com_os_elementos_estaticos(int id){
   }
 }
 
-void trata_colisoes_do_bote(int id){
+int vertices_do_bote_batem_no_passageiro(naufrago passageiro, int y, int x){
+  if(esta_no_passageiro(y, (x - ALTURA_BOTE/3), passageiro) || 
+	 esta_no_passageiro(y, (x + ALTURA_BOTE/3), passageiro) || 
+	 esta_no_passageiro((y - ALTURA_BOTE),   x, passageiro))
+	return 1;
+  return 0;
+}
+
+int circunferencia_colide_com_bote(int y, int x, int raio, int y_bote, int x_bote){
+  int centro_y, centro_x;
+  int distancia_minima, distancia_atual;
+  centro_y = y_bote - (ALTURA_BOTE/3);
+  centro_x = x_bote;
+
+  distancia_minima = distancia_quadratica_minima_entre_centros(raio, (ALTURA_BOTE/3));
+  distancia_atual = distancia_quadratica_entre_centros(centro_x, centro_y, x, y);
+  if(distancia_atual <= distancia_minima)
+	return 1;
+  return 0;
+}
+
+/* para os calculos de colisao, usaremos uma circunferencia inscrita ao bote e os seus 3 vertices para comparacoes */
+void trata_colisao_do_bote_com_passageiros(int id_bote, naufrago *passageiros){
+  int i, y, x, quantidade_de_passageiros;
+  y = pega_y_da_base_do_bote(id_bote);
+  x = pega_x_da_base_do_bote(id_bote);
+
+  /* pega a quantidade atual de passageiros */
+  quantidade_de_passageiros = pega_quantidade_de_passageiros();
+
+  /* percorre todos os passageiros verificando se eles foram pegos pelo bote */
+  for(i = 0; i < quantidade_de_passageiros; i++){
+	if(vertices_do_bote_batem_no_passageiro(passageiros[i], y, x) || 
+	   circunferencia_colide_com_bote(passageiros[i].coordenada_y, passageiros[i].coordenada_x, RAIO_PASSAGEIRO, y, x)){ 
+	  passageiros[i] = reinicializa_passageiro(passageiros[i]);
+	  aumenta_numero_de_resgates(id_bote);
+	}
+  }
+}
+
+int botes_colidiram(){
+  int raio = (ALTURA_BOTE/3);
+  Bote bote0, bote1;
+  
+  bote0 = pega_bote(0);
+  bote1 = pega_bote(1);
+  
+  if(circunferencia_colide_com_bote(bote0.coordenada_y, bote0.coordenada_x, raio, bote1.coordenada_y, bote1.coordenada_x) ||
+
+	 circunferencia_colide_com_bote(bote0.coordenada_y, (bote0.coordenada_x - raio), 0, bote1.coordenada_y, bote1.coordenada_x) ||
+	 circunferencia_colide_com_bote(bote0.coordenada_y, (bote0.coordenada_x + raio), 0, bote1.coordenada_y, bote1.coordenada_x) ||
+	 circunferencia_colide_com_bote((bote0.coordenada_y - raio*3), bote0.coordenada_x, 0, bote1.coordenada_y, bote1.coordenada_x) ||
+
+	 circunferencia_colide_com_bote(bote1.coordenada_y, (bote1.coordenada_x - raio), 0, bote0.coordenada_y, bote0.coordenada_x) ||
+	 circunferencia_colide_com_bote(bote1.coordenada_y, (bote1.coordenada_x + raio), 0, bote0.coordenada_y, bote0.coordenada_x) ||
+	 circunferencia_colide_com_bote((bote1.coordenada_y - raio*3), bote1.coordenada_x, 0, bote0.coordenada_y, bote0.coordenada_x))
+
+	return 1;
+  return 0;
+}
+
+void trata_colisao_entre_botes(){
+  int direcao_aux;
+  if(botes_colidiram()){
+	direcao_aux = pega_direcao_do_bote(0);
+	troca_direcao_do_bote(0, pega_direcao_do_bote(1));
+	troca_direcao_do_bote(1, direcao_aux);
+  }
+}
+
+void trata_colisoes_do_bote(int id, naufrago *passageiros){
   trata_colisao_do_bote_com_os_elementos_estaticos(id);
-  /* trata_colisao_do_bote_com_passageiros(id); */
-  /* trata_colisao_do_bote_com_asimov(); */
-  /* trata_colisao_do_bote_com_coral(); */
+  trata_colisao_do_bote_com_passageiros(id, passageiros);
+  trata_colisao_entre_botes();
 }

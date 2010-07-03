@@ -22,6 +22,8 @@
 #include "movimenta_elementos.h"
 #include "estado_inicial.h"
 
+void tira_passageiro_do_oceano(int y, int x);
+int pega_quantidade_de_passageiros();
 void seta_frequencia_geracao_passageiros(float frequencia);
 void seta_quantidade_inicial_passageiros(int quantidade_inicial);
 void seta_quantidade_maxima_passageiros(int quantidade_maxima);

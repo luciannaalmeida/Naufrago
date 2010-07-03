@@ -15,8 +15,9 @@
 #include "naufrago.h"
 #include "coral.h"
 #include "asimov.h"
+#include "jogo.h"
 
-int distancia_quadratica_entre_centros(naufrago elemento_A, naufrago elemento_B);
+int distancia_quadratica_entre_centros(int x_elemento_A, int y_elemento_A, int x_elemento_B, int y_elemento_B);
 
 int distancia_quadratica_minima_entre_centros(int raio1, int raio2);
 
@@ -43,6 +44,6 @@ void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros);
 
 void trata_colisao_com_asimov(naufrago* passageiros, int qtd_passageiros);
 
-void trata_colisoes_do_bote(int id);
+void trata_colisoes_do_bote(int id, naufrago *passageiros);
 
 #endif

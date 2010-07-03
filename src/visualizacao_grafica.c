@@ -47,29 +47,6 @@ void incicializa_janela(int resolucao_horizontal, int resolucao_vertical){
   set_window_title("Naufrago"); 
 }
 
-/* /\* carrega a imagem de um dado arquivo *\/ */
-/* BITMAP *carrega_imagem(char *nomeArquivo){ */
-/*   BITMAP *bitmap = load_bitmap(nomeArquivo, NULL); */
-/*   return bitmap; */
-/* } */
-
-/* /\* Insere um bitmap na tela *\/ */
-/* void insere_imagem_na_tela(BITMAP *bitmap, int x, int y){ */
-/*   draw_sprite(screen, bitmap, x, y); */
-/* } */
-
-/* /\* Insere uma figura origem em um local determinado de um destino*\/ */
-/* void sobrepoe_figuras(BITMAP *origem, BITMAP *destino, int x, int y, int altura, int largura){ */
-/*   blit(origem, destino, 0, 0, x, y, largura, altura); */
-/* } */
-
-/* BITMAP* desenha_oceano(){ */
-/*   BITMAP *oceano; */
-/*   oceano = carrega_imagem("imagens/Oceano.BMP"); */
-/*   insere_imagem_na_tela(oceano, 0, 0); */
-/*   return oceano; */
-/* } */
-
 void desenha_passageiro(BITMAP *destino, int y, int x){
   /*void circlefill(BITMAP *bmp, int x, int y, int  radius, int color); */
   /*int makecol(int  r, int g, int b); */

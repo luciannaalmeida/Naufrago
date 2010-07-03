@@ -1,4 +1,4 @@
-EP2 - Laboratório de Programação     10/05/2010
+EP3 - Laboratório de Programação     09/06/2010
 
 Integrantes:
 Lucianna Thomaz Almeida      5893802  
@@ -17,3 +17,6 @@ Para rodar testes:
 
 Para ver as opções de parâmetros:
   ./exe -h
+  
+Para sair da janela de execução:
+  ESC

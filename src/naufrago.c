@@ -87,9 +87,6 @@ int posicao_ocupada(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]
   return 1;
 }
 
-/* coloca o passageiro na posicao que foi atribuida a ele */
-
-
 /* Funcao que gera um passageiro, com uma posicao e uma velocidade aleatorios */
 void gera_passageiro(naufrago *passageiros, int i, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
 
@@ -129,6 +126,14 @@ int nao_esta_na_borda(naufrago passageiro){
 
 /* Reinicializa passageiro para que ele seja recriado em uma das bordas */
 naufrago reinicializa_passageiro(naufrago passageiro){
+  int y_passageiro, x_passageiro;
+  y_passageiro = passageiro.coordenada_y;
+  x_passageiro = passageiro.coordenada_x;
+
+  /* tira o passageiro da sua posicao caso ela seja dentro do oceno */
+  if(esta_no_oceano(y_passageiro, x_passageiro))
+	tira_passageiro_do_oceano(y_passageiro, x_passageiro);
+
   passageiro.modulo_velocidade = gera_velocidade_passageiro_aleatoria();
   while(nao_esta_na_borda(passageiro))
 	passageiro = gera_posicao_aleatoria(passageiro);
