@@ -10,8 +10,13 @@
 #include "asimov.h"
 
 /* verifica se posicao esta dentro da asimov */
-int esta_na_asimov(int y, int x){
-  return (y >= y1_ASIMOV && y <= y2_ASIMOV && x >= x1_ASIMOV && x <= x2_ASIMOV);
+int esta_na_asimov(int y, int x, int delta_de_aproximacao){
+  int minimo_y, maximo_y, minimo_x, maximo_x;
+  minimo_y = y1_ASIMOV - delta_de_aproximacao;
+  maximo_y = y2_ASIMOV + delta_de_aproximacao;
+  minimo_x = x1_ASIMOV - delta_de_aproximacao;
+  maximo_x = x2_ASIMOV + delta_de_aproximacao;
+  return (y >= minimo_y && y <= maximo_y && x >= minimo_x && x <= maximo_x);
 } 
 
 /* verifica se uma posicao esta fora do oceano */

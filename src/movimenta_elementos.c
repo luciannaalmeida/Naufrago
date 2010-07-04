@@ -13,6 +13,11 @@
 /*3     4*/
 /*5  6  7*/
 
+/*0  1  2*/
+/*7     3*/
+/*6  5  4*/
+
+
 /* Estrutura que indica uma das possiveis direcoes do passageiro */
 typedef struct direcao{
   int deslocamento_em_x;
@@ -33,11 +38,12 @@ void inicializa_vetor_de_direcoes(){
   define_valores_da_direcao(0, -1,  1);
   define_valores_da_direcao(1,  0,  1);
   define_valores_da_direcao(2,  1,  1);
-  define_valores_da_direcao(3, -1,  0);
-  define_valores_da_direcao(4,  1,  0);
-  define_valores_da_direcao(5, -1, -1);
-  define_valores_da_direcao(6,  0, -1);
-  define_valores_da_direcao(7,  1, -1);
+  define_valores_da_direcao(3,  1,  0);
+  define_valores_da_direcao(4,  1, -1);
+  define_valores_da_direcao(5,  0, -1);
+  define_valores_da_direcao(6, -1, -1);
+  define_valores_da_direcao(7, -1,  0);
+
 }
 
 
@@ -66,13 +72,14 @@ naufrago calcula_nova_posicao_do_elemento(naufrago passageiro){
 
 /* Atualiza a posicao do elemento no oceano */
 naufrago atualiza_posicao_do_elemento_no_oceano(naufrago passageiro, int oceano[][MAX_LONGITUDE]){
-  /* Desmarca a posicao antiga do passageiro */
-  oceano[passageiro.coordenada_y][passageiro.coordenada_x] -= PASSAGEIRO;
-  /* Calcula a nova posicao do passageiro */
-  passageiro = calcula_nova_posicao_do_elemento(passageiro);
-  /* Marca a nova posicao do passageiro no oceano */
-  oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO;
-	
+  if(esta_no_oceano(passageiro.coordenada_y, passageiro.coordenada_x)){
+    /* Desmarca a posicao antiga do passageiro */
+    oceano[passageiro.coordenada_y][passageiro.coordenada_x] -= PASSAGEIRO;
+    /* Calcula a nova posicao do passageiro */
+    passageiro = calcula_nova_posicao_do_elemento(passageiro);
+    /* Marca a nova posicao do passageiro no oceano */
+    oceano[passageiro.coordenada_y][passageiro.coordenada_x] += PASSAGEIRO;
+  }
   return passageiro;
 }
 
@@ -106,25 +113,28 @@ void movimenta_passageiros(naufrago *passageiros, int qtd_passageiros, int ocean
 
 /* Calcula a nova posicao do bote de acordo com a sua direcao */
 void calcula_nova_posicao_do_bote(int id){
-  int direcao_do_bote, novo_x_da_base, novo_y_da_base;
+  int direcao_do_bote, novo_x_da_base, novo_y_da_base, velocidade;
+  velocidade = pega_velocidade_do_bote(id);
 
   /* pega direcao do bote */
   direcao_do_bote = pega_direcao_do_bote(id);
 
   /* atualiza o x da base do bote */
-  novo_x_da_base = pega_x_da_base_do_bote(id) + direcoes[direcao_do_bote].deslocamento_em_x;
+  novo_x_da_base = pega_x_da_base_do_bote(id) + direcoes[direcao_do_bote].deslocamento_em_x*velocidade;
   seta_x_da_base_do_bote(id, novo_x_da_base);
 
   /* atualiza o y da base do bote */
-  novo_y_da_base = pega_y_da_base_do_bote(id) + direcoes[direcao_do_bote].deslocamento_em_y;
+  novo_y_da_base = pega_y_da_base_do_bote(id) + direcoes[direcao_do_bote].deslocamento_em_y*velocidade;
   seta_y_da_base_do_bote(id, novo_y_da_base);
 }
 
 void movimenta_botes(naufrago *passageiros, int qnt_passageiros, int oceano[][MAX_LONGITUDE]){
   int id;
   for(id = 0; id < 2; id++){
-	calcula_nova_posicao_do_bote(id);
-	trata_colisoes_do_bote(id, passageiros);
+    if(!bote_afundou(id)){
+      calcula_nova_posicao_do_bote(id);
+      trata_colisoes_do_bote(id, passageiros);
+    }
   }
 }
 

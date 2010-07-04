@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic -ansi -O2 -g -ggdb3 -lalleg-4.2.2 
-dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o coral.o colisoes.o asimov.o bote.o
-objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o lib/coral.o lib/colisoes.o lib/asimov.o lib/bote.o
+dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o coral.o colisoes.o asimov.o bote.o imprime_informacoes.o teclas.o
+objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o lib/coral.o lib/colisoes.o lib/asimov.o lib/bote.o lib/imprime_informacoes.o lib/teclas.o
 
 all: lib ${dependencies}
 	clear
@@ -38,6 +38,12 @@ asimov.o: lib src/asimov.c src/asimov.h
 
 bote.o: lib src/bote.c src/bote.h
 	gcc ${CFLAGS} -c src/bote.c -o lib/bote.o 
+
+imprime_informacoes.o: lib src/imprime_informacoes.c src/imprime_informacoes.h
+	gcc ${CFLAGS} -c src/imprime_informacoes.c -o lib/imprime_informacoes.o 
+
+teclas.o: lib src/teclas.c src/teclas.h
+	gcc ${CFLAGS} -c src/teclas.c -o lib/teclas.o 
 
 testes: estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o src/minunit.c
 	gcc ${CFLAGS} src/minunit.c lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o -o teste

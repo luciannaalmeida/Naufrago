@@ -19,8 +19,6 @@ void imprime_oceano(int fase, int oceano[][MAX_LONGITUDE]){
   escolhe_fase_para_imprimir(fase);
 
   imprime_asimov(screen);
-  
-  imprime_botes(screen);
 
   for(y = 0; y < MAX_LATITUDE; y++){
     for(x = 0; x < MAX_LONGITUDE; x++){
@@ -30,5 +28,9 @@ void imprime_oceano(int fase, int oceano[][MAX_LONGITUDE]){
 		desenha_colisao(screen, y, x);
     }
   }
+
+  imprime_botes(screen);
+  imprime_informacoes(screen);
+
   release_screen();
 }

@@ -23,25 +23,7 @@ int distancia_quadratica_minima_entre_centros(int raio1, int raio2){
 
 /* Inverte direcao que esta sendo seguida */
 int inverte_direcao(int direcao_antiga){
-  switch(direcao_antiga){
-  case 0:
-	return 7;
-  case 1:
-	return 6;
-  case 2:
-	return 5;
-  case 3:
-	return 4;
-  case 4:
-	return 3;
-  case 5:
-	return 2;
-  case 6:
-	return 1;		
-  case 7:
-	return 0;
-  }
-  return direcao_antiga;
+  return (direcao_antiga+4)%8;
 }
 
 /* Troca vetor velocidade do passageiro A com o B */
@@ -146,11 +128,16 @@ void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
 
 int colidiu_com_asimov(naufrago passageiro){
   int y, x, centro_y, centro_x;
+  int minimo_y, maximo_y, minimo_x, maximo_x;
   centro_y = passageiro.coordenada_y;
   centro_x = passageiro.coordenada_x;
-  for(y = (centro_y - RAIO_PASSAGEIRO); y <= (centro_y + RAIO_PASSAGEIRO); y++)
-	for(x = (centro_x - RAIO_PASSAGEIRO); x <= (centro_x + RAIO_PASSAGEIRO); x++)
-	  if(esta_dentro_do_oceano(y, x) && esta_no_passageiro(y, x, passageiro) && esta_na_asimov(y,x))
+  minimo_y = (centro_y - RAIO_PASSAGEIRO);
+  maximo_y = (centro_y + RAIO_PASSAGEIRO);
+  minimo_x = (centro_x - RAIO_PASSAGEIRO);
+  maximo_x = (centro_x + RAIO_PASSAGEIRO);
+  for(y = minimo_y; y <= maximo_y; y++)
+	for(x = minimo_x; x <= maximo_x; x++)
+	  if(esta_dentro_do_oceano(y, x) && esta_no_passageiro(y, x, passageiro) && esta_na_asimov(y,x,0))
 		return 1;
   return 0;
 }
@@ -169,15 +156,22 @@ int bote_bateu_na_borda_do_oceano(int id, int y, int x){
   return 0;
 }
 
-int bote_bateu_na_asimov(int id, int y, int x){
-  if(esta_na_asimov(y, (x - ALTURA_BOTE/3)) || esta_na_asimov(y, (x + ALTURA_BOTE/3)) || esta_na_asimov((y - ALTURA_BOTE), x))
+int bote_proximo_da_asimov(int id, int y, int x, int delta){
+  if(esta_na_asimov(y, (x - ALTURA_BOTE/3), delta) || 
+     esta_na_asimov(y, (x + ALTURA_BOTE/3), delta) || 
+     esta_na_asimov((y - ALTURA_BOTE), x, delta))
 	return 1;
   return 0;
 }
 
-int bote_bateu_no_coral(int y, int x){
-  if(esta_em_algum_coral(y, (x-ALTURA_BOTE/3)) || esta_em_algum_coral(y, (x+ALTURA_BOTE/3)) || esta_em_algum_coral((y-ALTURA_BOTE), x))
+int bote_bateu_no_coral(int id, int y, int x){
+  if(esta_em_algum_coral(y, (x-ALTURA_BOTE/3)) || 
+     esta_em_algum_coral(y, (x+ALTURA_BOTE/3)) || 
+     esta_em_algum_coral((y-ALTURA_BOTE), x)){
+    bote_perde_uma_vida(id);
+    zera_numero_de_resgates_do_bote(id);
 	return 1;
+  }
   return 0;
 }
 
@@ -187,9 +181,9 @@ void trata_colisao_do_bote_com_os_elementos_estaticos(int id){
   y = pega_y_da_base_do_bote(id);
   x = pega_x_da_base_do_bote(id);
 
-  if(bote_bateu_na_borda_do_oceano(id, y, x) || bote_bateu_na_asimov(id, y, x) || bote_bateu_no_coral(y, x)){
-	direcao_antiga = pega_direcao_do_bote(id);
-	seta_direcao_do_bote(id, inverte_direcao(direcao_antiga));
+  if(bote_bateu_na_borda_do_oceano(id, y, x) || bote_proximo_da_asimov(id, y, x, 0) || bote_bateu_no_coral(id, y, x)){
+    direcao_antiga = pega_direcao_do_bote(id);
+    seta_direcao_do_bote(id, inverte_direcao(direcao_antiga));
   }
 }
 
@@ -214,6 +208,10 @@ int circunferencia_colide_com_bote(int y, int x, int raio, int y_bote, int x_bot
   return 0;
 }
 
+void inverte_direcao_do_passageiro(naufrago *passageiros, int id){
+  passageiros[id].direcao = inverte_direcao(passageiros[id].direcao);
+}
+
 /* para os calculos de colisao, usaremos uma circunferencia inscrita ao bote e os seus 3 vertices para comparacoes */
 void trata_colisao_do_bote_com_passageiros(int id_bote, naufrago *passageiros){
   int i, y, x, quantidade_de_passageiros;
@@ -225,11 +223,15 @@ void trata_colisao_do_bote_com_passageiros(int id_bote, naufrago *passageiros){
 
   /* percorre todos os passageiros verificando se eles foram pegos pelo bote */
   for(i = 0; i < quantidade_de_passageiros; i++){
-	if(vertices_do_bote_batem_no_passageiro(passageiros[i], y, x) || 
-	   circunferencia_colide_com_bote(passageiros[i].coordenada_y, passageiros[i].coordenada_x, RAIO_PASSAGEIRO, y, x)){ 
-	  passageiros[i] = reinicializa_passageiro(passageiros[i]);
-	  aumenta_numero_de_resgates(id_bote);
-	}
+    if(vertices_do_bote_batem_no_passageiro(passageiros[i], y, x) || 
+       circunferencia_colide_com_bote(passageiros[i].coordenada_y, passageiros[i].coordenada_x, RAIO_PASSAGEIRO, y, x)){ 
+      if(bote_lotado(id_bote) || bote_ancorado(id_bote))
+	inverte_direcao_do_passageiro(passageiros, i);
+      else{
+	passageiros[i] = reinicializa_passageiro(passageiros[i]);
+	aumenta_numero_de_resgates(id_bote);
+      }
+    }
   }
 }
 
@@ -240,31 +242,47 @@ int botes_colidiram(){
   bote0 = pega_bote(0);
   bote1 = pega_bote(1);
   
-  if(circunferencia_colide_com_bote(bote0.coordenada_y, bote0.coordenada_x, raio, bote1.coordenada_y, bote1.coordenada_x) ||
-
-	 circunferencia_colide_com_bote(bote0.coordenada_y, (bote0.coordenada_x - raio), 0, bote1.coordenada_y, bote1.coordenada_x) ||
-	 circunferencia_colide_com_bote(bote0.coordenada_y, (bote0.coordenada_x + raio), 0, bote1.coordenada_y, bote1.coordenada_x) ||
-	 circunferencia_colide_com_bote((bote0.coordenada_y - raio*3), bote0.coordenada_x, 0, bote1.coordenada_y, bote1.coordenada_x) ||
-
-	 circunferencia_colide_com_bote(bote1.coordenada_y, (bote1.coordenada_x - raio), 0, bote0.coordenada_y, bote0.coordenada_x) ||
-	 circunferencia_colide_com_bote(bote1.coordenada_y, (bote1.coordenada_x + raio), 0, bote0.coordenada_y, bote0.coordenada_x) ||
-	 circunferencia_colide_com_bote((bote1.coordenada_y - raio*3), bote1.coordenada_x, 0, bote0.coordenada_y, bote0.coordenada_x))
-
-	return 1;
+  if(circunferencia_colide_com_bote(bote0.coordenada_y, bote0.coordenada_x, 
+				    raio, bote1.coordenada_y, bote1.coordenada_x) ||
+     circunferencia_colide_com_bote(bote0.coordenada_y, (bote0.coordenada_x - raio),
+				    0, bote1.coordenada_y, bote1.coordenada_x) ||
+     circunferencia_colide_com_bote(bote0.coordenada_y, (bote0.coordenada_x + raio), 
+				    0, bote1.coordenada_y, bote1.coordenada_x) ||
+     circunferencia_colide_com_bote((bote0.coordenada_y - raio*3), bote0.coordenada_x, 
+				    0, bote1.coordenada_y, bote1.coordenada_x) ||
+     circunferencia_colide_com_bote(bote1.coordenada_y, (bote1.coordenada_x - raio), 
+				    0, bote0.coordenada_y, bote0.coordenada_x) ||
+     circunferencia_colide_com_bote(bote1.coordenada_y, (bote1.coordenada_x + raio), 
+				    0, bote0.coordenada_y, bote0.coordenada_x) ||
+     circunferencia_colide_com_bote((bote1.coordenada_y - raio*3), bote1.coordenada_x, 
+				    0, bote0.coordenada_y, bote0.coordenada_x))
+    return 1;
+  
   return 0;
 }
 
 void trata_colisao_entre_botes(){
   int direcao_aux;
-  if(botes_colidiram()){
+  if(botes_colidiram() && !bote_afundou(0) && !bote_afundou(1)){
 	direcao_aux = pega_direcao_do_bote(0);
 	troca_direcao_do_bote(0, pega_direcao_do_bote(1));
 	troca_direcao_do_bote(1, direcao_aux);
   }
 }
 
-void trata_colisoes_do_bote(int id, naufrago *passageiros){
-  trata_colisao_do_bote_com_os_elementos_estaticos(id);
-  trata_colisao_do_bote_com_passageiros(id, passageiros);
-  trata_colisao_entre_botes();
+int bote_pode_descarregar(int id_bote){
+  int y, x;
+  y = pega_y_da_base_do_bote(id_bote);
+  x = pega_x_da_base_do_bote(id_bote);
+
+  return(bote_ancorado(id_bote) && bote_proximo_da_asimov(id_bote, y, x, DISTANCIA_MIN_PARA_DESCARREGAR));
+}
+
+void trata_colisoes_do_bote(int id_bote, naufrago *passageiros){
+  trata_colisao_do_bote_com_passageiros(id_bote, passageiros);
+  trata_colisao_entre_botes();  
+  if(bote_pode_descarregar(id_bote))
+    descarrega_passageiros(id_bote);
+  else
+    trata_colisao_do_bote_com_os_elementos_estaticos(id_bote);  
 }

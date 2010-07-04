@@ -21,6 +21,8 @@
 #include "imprime_estado_atual.h"
 #include "movimenta_elementos.h"
 #include "estado_inicial.h"
+#include "teclas.h"
+#include "imprime_informacoes.h"
 
 void tira_passageiro_do_oceano(int y, int x);
 int pega_quantidade_de_passageiros();

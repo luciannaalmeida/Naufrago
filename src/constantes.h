@@ -41,14 +41,26 @@
 #define y2_ASIMOV 400
 #define x2_ASIMOV 550
 
+/* define distancia minima entre bote e asimov para descarregar passageiros */
+#define DISTANCIA_MIN_PARA_DESCARREGAR 30
+#define NUMERO_INICIAL_DE_VIDAS 3
+#define PONTUACAO_PARA_GANHAR_VIDA 500
+#define PONTUACAO_DE_RESGATE 10
+#define PONTUACAO_DE_DESCARREGO 20
+
+#define MINIMO_DE_CLICKS 7
+
 #define ALTURA_BOTE  30
-#define MAX_VEL_BOTE 30
+#define MAX_VEL_BOTE 4
+#define LOTACAO_DO_BOTE 10
 
 #define MAX_LONGITUDE  1024
 #define MAX_LATITUDE   768
 
 #define _XOPEN_SOURCE 500
 #define _SVID_SOURCE 1
+#define DELAY 1000
+#define REPEAT 0
 
 #define esta_no_oceano(y, x) (((x) < 0 || (x) >= MAX_LONGITUDE || (y) < 0 || (y) >= MAX_LATITUDE) ? 0 : 1)
 

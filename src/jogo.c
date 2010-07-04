@@ -46,7 +46,7 @@ void seta_quantidade_maxima_passageiros(int quantidade_maxima){
 /* Realiza uma rodada do jogo */
 void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]){
   int i;
-
+  trata_comandos_do_jogador();
   /* Cria um novo passageiro de acordo com a frequencia de geracao */
   if(qtd_atual_passageiros < QTD_MAXIMA_PASSAGEIROS && frequencia_geracao_passageiros != 0){
 	if(frequencia_geracao_passageiros < 1){
@@ -60,6 +60,10 @@ void atualiza_jogo(naufrago *passageiros, int tempo, int oceano[][MAX_LONGITUDE]
   
   /* Atualiza posicao dos elementos no oceano */
   atualiza_posicoes_dos_elementos(passageiros, qtd_atual_passageiros, oceano);
+}
+
+int acabou_o_jogo(){
+  return botes_afundaram();
 }
 
 /* Funcao para rodar o jogo */
@@ -78,6 +82,8 @@ void jogo(){
 
   /* Inicializa a quantidade inicial de passageiros no jogo */
   qtd_atual_passageiros = QTD_INICIAL_PASSAGEIROS;
+  inicializa_vetor_de_mensagem();
+  
 
   /* Enquanto nao eh o fim do jogo */
   for(tempo = 1; (tempo < 5000) && (!key[KEY_ESC]); tempo++){
@@ -86,13 +92,17 @@ void jogo(){
     usleep(10000 - diferenca_de_tempo);  
     
     imprime_oceano(fase, oceano);
-    
     /* Realiza uma rodada do jogo */
-    atualiza_jogo(passageiros, tempo, oceano);
-    tempo_final = clock();	
-	if(CLOCKS_PER_SEC < 1.0)
-	  diferenca_de_tempo = (tempo_final - tempo_inicial) / CLOCKS_PER_SEC ;
+    if(acabou_o_jogo()){
+      imprime_fim_de_jogo(screen);
+    }
+    else{
+      atualiza_jogo(passageiros, tempo, oceano);
+      tempo_final = clock();	
+      if(CLOCKS_PER_SEC < 1.0)
+	diferenca_de_tempo = (tempo_final - tempo_inicial) / CLOCKS_PER_SEC ;
+    }
   }
-  
+  libera_vetor_de_mensagem();
   free(passageiros);
 }

@@ -15,7 +15,7 @@
 #include <allegro.h>
 #include "visualizacao_grafica.h"
 
-int esta_na_asimov(int y, int x);
+int esta_na_asimov(int y, int x, int delta_de_aproximacao);
 void cria_asimov(int oceano[][MAX_LONGITUDE]);
 void imprime_asimov(BITMAP *destino);
 

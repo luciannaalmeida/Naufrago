@@ -23,8 +23,10 @@ void incicializa_janela(int resolucao_horizontal, int resolucao_vertical){
   /*Inicializa o Allegro, o teclado, o mouse e os temporizadores*/
   allegro_init();
   install_keyboard();
+  set_keyboard_rate(DELAY, REPEAT);
   install_mouse();
-  install_timer();	
+  install_timer();
+  
   
   /* guarda a quantidade de cores que a maquina do usuario suporta */
   bits_cores_grafico = desktop_color_depth();
@@ -75,14 +77,17 @@ void desenha_botes(BITMAP *destino, Bote botes[]){
   /*void rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color); */
   /*int makecol(int r, int g, int b); */
   int x, y;
-
-  /* desenha bote 0 */
-  x = botes[0].coordenada_x;
-  y = botes[0].coordenada_y;
-  triangle(destino, (x - ALTURA_BOTE/3), y, (x + ALTURA_BOTE/3), y, x, (y - ALTURA_BOTE), makecol(100, 15, 20));
-
-  /* desenha bote 1 */
-  x = botes[1].coordenada_x;
-  y = botes[1].coordenada_y;
-  triangle(destino, (x - ALTURA_BOTE/3), y, (x + ALTURA_BOTE/3), y, x, (y - ALTURA_BOTE), makecol(20, 80, 40));
+  
+  if(!bote_afundou(0)){
+    /* desenha bote 0 */
+    x = botes[0].coordenada_x;
+    y = botes[0].coordenada_y;
+    triangle(destino, (x - ALTURA_BOTE/3), y, (x + ALTURA_BOTE/3), y, x, (y - ALTURA_BOTE), makecol(100, 15, 20));
+  }
+  if(!bote_afundou(1)){
+    /* desenha bote 1 */
+    x = botes[1].coordenada_x;
+    y = botes[1].coordenada_y;
+    triangle(destino, (x - ALTURA_BOTE/3), y, (x + ALTURA_BOTE/3), y, x, (y - ALTURA_BOTE), makecol(20, 80, 40));
+  }
 }
