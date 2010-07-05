@@ -1,0 +1,192 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{syntonly}
+
+\title{Náufragos\\Relatório}
+\author{Lucas R. Colucci \and Lucianna T. Almeida \and Cindy de Albuquerque}
+
+\pagestyle{headings}
+
+%\syntaxonly
+
+\usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+Neste documento serão apresentados: um manual do usuário (contendo os pré-requisitos do programa, como instalá-lo,
+ como jogar e etc.), uma explicação de como foi implementado o projeto
+ (contendo os módulos utilizados e respectivas explicações) e uma conclusão sobre a programação do programa.
+Abaixo segue a história do jogo:\\
+
+\emph{Estamos nos primeiros anos do século XX. O imponente transatlântico RMS Positronic deixa a Europa rumo ao Novo Mundo. Tudo corria bem em sua viagem, até que o navio esbarrou em um iceberg (sim, clichê básico de tragédias marítimas). Todavia, para a felicidade dos passageiros, o navio seguia rigorosamente os protocolos de segurança e havia coletes salva-vidas para todos. Outra sorte é que era verão na época do naufrágio, dessa forma tampouco as vítimas tiveram problemas com hipotermia.}
+
+\emph{Felizmente para os passageiros, quis o destino que próximo ao naufrágio passasse o modesto navio cargueiro Asimov. O cargueiro, que contava com dois botes, prontamente colocou-os para o resgate dos passageiros em alto-mar. }
+ 
+\section{Manual do Usuário}
+
+Nesta seção explicaremos:
+\begin{itemize}
+\item os pré-requisitos para rodar o jogo
+\item como instalar o jogo
+\item os possíveis parâmetros a serem passados na linha de comando
+\item como jogar
+\end{itemize}
+ 
+
+\subsection{Pré-requisitos}
+Para poder rodar o programa em sua máquina, é necessária apenas a instalação da biblioteca \emph{Allegro} no seu computador.
+Se você usa Ubuntu o jeito mais fácil de instalá-la é digitar no terminal a seguinte linha de comando:
+
+\verb|sudo apt-get install liballegro-dev|
+
+\subsection{Instalação}
+\subsection{Parâmetros}
+Existem alguns parâmetros que podem ser passados na linha de comando na hora de rodar o jogo, que são:
+\begin{itemize}
+\item -h        imprime o menu \emph{help}
+\item -v<valor> seta o valor da \emph{velocidade média}
+\item -s<valor> seta o valor da \emph{semente} usada no \verb|rand()|
+\item -f<valor> seta o valor da \emph{frequência de geração de passageiros}
+\end{itemize}
+
+\subsection{Jogo}
+Nessa subseção, serão esclarecidas as regras e os comandos do jogo.
+
+\subsubsection{Regras}
+O jogo começa com os dois botes (triângulos isóceles) lado a lado na parte inferior da tela.
+Cada bote começa com 3 vidas extras.
+O objetivo do jogo é salvar os passageiros (círculos verdes) naufragados. Para isso deve-se passar com o bote por cima dos passageiros, e despejá-los no \emph{Asimov} (retangulo preto), ancorando ao seu lado.
+
+No entanto, existem algumas complicações:
+\begin{itemize}
+\item Não é possível carregar mais do que 10 passageiros de uma só vez
+\item Existe uma área em volta do \emph{Asimov} para despejar os passageiros
+\item Perde-se uma vida sempre que o bote encosta em um coral (quartos de circulos laranjas) 
+\end{itemize}
+
+Ganha o jogo quem, ao final, tiver o maior número de pontos.
+Estes são distribuídos da seguinte maneira:
+\begin{itemize}
+\item Cada vez que um bote pega um passageiro, ganha-se 10 pontos
+\item Cada vez que um bote despeja os passageiros no \emph{Asimov}, ganha-se 20 pontos para cada passageiro despejado
+\item Ganha-se uma vida a cada 500 pontos acumulados
+\end{itemize}
+
+E, finalmente, o jogo acaba quando ambos os botes afundam, ao final de um minuto de jogo, ou quando o jogador aperta ESC.
+
+\subsubsection{Comandos}
+Os comandos utilizados para jogar são:\\
+
+\textbf{ BOTE 1 - ESQUERDA }
+\begin{itemize}
+\item Acelera             - Botão W
+\item Freia               - Botão S
+\item Vira para esquerda  - Botão A
+\item Vira para a direita - Botão D
+\item Joga ancora         - Botão Q
+\end{itemize}
+
+
+\textbf{BOTE 2 - DIREITA}
+\begin{itemize}
+\item Acelera             - Direcional para cima
+\item Freia               - Direcional para baixo
+\item Vira para esquerda  - Direcional para esquerda
+\item Vira para a direita - Direcional para direita
+\item Joga ancora         - Ctrl do lado direito
+\end{itemize}
+
+\section{Implementação}
+Nesta seção falaremos sobre a implementação do programa, ou seja, sua estruturação, os testes, e os interpretadores.
+
+\subsection{Estruturação do código}
+O programa foi separado em diferentes módulos, para facilitar tanto a atualização do jogo em cada estágio quanto a sua organização.
+Os módulos feitos foram:\\
+
+\textbf{asimov.c \& asimov.h}
+
+Contém as funções que envolvem o asimov.\\
+
+\textbf{bote.c \& bote.h}
+
+Contém a estrutura do bote, e o vetor \emph{botes}, para facilitar o manuseio das estruturas.
+
+Além disso, contém as funções que envolvem os botes, como funções auxiliares para sua movimentação.\\
+
+\textbf{colisoes.c \& colisoes.h}
+
+Arquivo que trata todos os tipos de colisões que acontecem durante jogo.\\
+
+\textbf{coral.c \& coral.h}
+
+Contém a estrutura do coral, e um vetor de corais.
+
+Além disso possui funções auxiliares para descrever a localização do coral.\\
+
+\textbf{estado\_inicial.c \& estado\_inicial.h}
+
+Descreve o estado inicial do programa.\\
+
+\textbf{imprime\_estado\_atual.c \& imprime\_estado\_atual.h}
+
+Desenha na tela, com a biblioteca allegro, o estado atual do jogo.\\
+
+\textbf{imprime\_informacoes.c \& imprime\_informacoes.h}
+
+Imprime as informações do jogador na tela (nome, pontos, numero de passageiros a bordo), além de imprimir o fim de jogo.\\
+
+\textbf{jogo.c \& jogo.h}
+
+Onde sao chamadas todas as funções necessárias para rodar o programa.\\
+
+\textbf{movimenta\_elementos.c \& movimenta\_elementos.c.h}
+
+Contém funções de movimentação de todos os elementos.\\
+
+\textbf{naufrago.c \& naufrago.h}
+
+Contém a estrutura do passageiro e as funções a seu respeito.\\
+
+\textbf{teclas.c \& teclas.h}
+
+Contém o controle do jogador pelas teclas, definindo para que serve cada uma.\\
+
+\textbf{visualizacao\_grafica.c \& visualizacao\_grafica.h}
+
+Contém todas as funções necessárias para fazer a impressão do jogo na tela.\\
+
+\textbf{minunit.c}
+
+Contém as funções de teste.\\
+
+\textbf{main.c}
+
+Determina alguns valores definidos por parâmetros da linha de comando e inicia o jogo.\\
+
+
+\subsection{Testes}
+\subsection{Interpretadores}
+
+\section{Conclusões}
+
+O projeto nos proporcionou um lado mais "divertido"  da programação pois, ao final de cada etapa, tinhamos um resultado
+concreto de nosso trabalho.
+
+Como foi um trabalho extenso, e foi dado em grupo, tivemos idéia de como seria trabalhar com programação.
+
+Além disso conseguimos aplicar quase toda, se nao toda, a matéria dada na disciplina de Laboratório de Programação I,
+o que facilitou o entendimento dos topicos dados em sala de aula.
+
+
+
+\end{document}
