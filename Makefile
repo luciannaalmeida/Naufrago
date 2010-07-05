@@ -45,6 +45,17 @@ imprime_informacoes.o: lib src/imprime_informacoes.c src/imprime_informacoes.h
 teclas.o: lib src/teclas.c src/teclas.h
 	gcc ${CFLAGS} -c src/teclas.c -o lib/teclas.o 
 
+
+doc/Relatorio.pdf: doc/src/Relatorio.tex
+	pdflatex doc/src/Relatorio.tex
+	pdflatex doc/src/Relatorio.tex
+	pdflatex doc/src/Relatorio.tex
+	pdflatex doc/src/Relatorio.tex
+	rm -f Relatorio.dvi Relatorio.aux Relatorio.log Relatorio.toc
+	mv Relatorio.pdf doc/
+
+doc: doc/Relatorio.pdf
+
 testes: estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o src/minunit.c
 	gcc ${CFLAGS} src/minunit.c lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o -o teste
 	clear	
@@ -54,4 +65,4 @@ lib:
 	mkdir lib
 
 clean:
-	rm -rf exe lib
+	rm -rf exe lib doc/Relatorio.pdf Relatorio.out

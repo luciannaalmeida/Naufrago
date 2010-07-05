@@ -1,0 +1,125 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{syntonly}
+
+\title{Náufragos\\Relatório}
+\author{Lucas R. Colucci \and Lucianna T. Almeida \and Cindy de Albuquerque}
+
+\pagestyle{headings}
+
+%\syntaxonly
+
+\usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+ 
+\section{Manual do Usuário}
+
+Nesta seção explicaremos:
+\begin{itemize}
+\item os pré-requisitos para rodar o jogo
+\item como instalar o jogo
+\item os possíveis parametros a serem passados na linha de comando
+\item como jogar
+\end{itemize}
+ 
+
+\subsection{Pré-requisitos}
+Para poder rodar o programa na sua máquina, é necessária apenas a instalação da biblioteca \emph{Allegro} no seu computador.
+Para tanto, siga as seguintes instruções:
+ 
+Se você usa Ubuntu o jeito mais fácil é digitar no terminal a seguinte linha de comando:
+
+\verb|sudo apt-get install liballegro-dev|
+
+Caso não tenha sucesso, siga as instruções abaixo:
+
+\begin{itemize}
+\item Baixe o arquivo http://sourceforge.net/projects/alleg/files/allegro/4.4.1.1/allegro-4.4.1.1.zip/download 
+\item Descompacte o arquivo
+\item Entre pelo terminal na pasta em que o arquivo foi descompactado
+\item Faça uma pasta chamada Build lá dentro. \verb|mkdir Build; cd Build|
+\item Agora dentro da pasta Build: \verb|cmake ..|
+\item Agora vamos compilar: \verb|make| 
+\item E instalar: \verb|make install|
+\end{itemize}
+
+\subsection{Instalação}
+\subsection{Parâmetros}
+Existem alguns parâmetros que podem ser passados na linha de comando na hora de rodar o jogo, que são:
+\begin{itemize}
+\item -h        imprime o menu \emph{help}
+\item -v<valor> seta o valor da \emph{velocidade media}
+\item -s<valor> seta o valor da \emph{semente} usada no \verb|rand()|
+\item -f<valor> seta o valor da \emph{frequencia de geracao de passageiros}
+\end{itemize}
+
+\subsection{Jogo}
+Nessa subseção, serão esclarecidas as regras e os comandos do jogo.
+
+\subsubsection{Regras}
+O jogo começa com os dois botes (triangulos isóceles) lado a lado na parte inferior da tela.
+Cada bote começa com 3 vidas extras.
+O objetivo do jogo é salvar os passageiros (circulos verdes) naufragados. Para isso deve-se passar com o bote por cima dos passageiros, e despejá-los no \emph{Asimov} (retangulo preto), ancorando ao seu lado.
+No entanto, existem algumas complicações:
+\begin{itemize}
+\item Não é possível carregar mais do que 10 passageiros de uma só vez
+\item Existe uma área em volta do \emph{Asimov} para despejar os passageiros
+\item Perde-se uma vida sempre que o bote encosta em um coral (quartos de circulos laranjas) 
+\end{itemize}
+Ganha o jogo quem, ao final do mesmo, tiver a maior pontuaçao.
+Estes são distribuídos da seguinte maneira:
+\begin{itemize}
+\item Cada vez que um bote pega um passageiro, ganha-se 10 pontos
+\item Cada vez que um bote despeja os passageiros no \emph{Asimov}, ganha-se 20 pontos para cada passageiro despejado
+\item Ganha-se uma vida a cada 500 pontos acumulados
+\end{itemize}
+E, finalmente, o jogo acaba quando ambos os botes afundam, ou ao final de um minuto de jogo.
+
+\subsubsection{Comandos}
+Os comandos utilizados para jogar são:\\
+
+\textbf{ BOTE 1 - ESQUERDA }
+\begin{itemize}
+\item Acelera             - Botão W
+\item Freia               - Botão S
+\item Vira para esquerda  - Botão A
+\item Vira para a direita - Botão D
+\item Joga ancora         - Botão Q
+\end{itemize}
+
+
+\textbf{BOTE 2 - DIREITA}
+\begin{itemize}
+\item Acelera             - Direcional para cima
+\item Freia               - Direcional para baixo
+\item Vira para esquerda  - Direcional para esquerda
+\item Vira para a direita - Direcional para direita
+\item Joga ancora         - Ctrl do lado direito
+\end{itemize}
+
+\section{Implementação}
+Nesta seção falaremos sobre a implementação do programa, ou seja, sua estruturação, os testes, e os interpretadores.
+
+\subsection{Estruturação do código}
+
+
+\subsection{Testes}
+\subsection{Interpretadores}
+
+\section{Conclusões}
+
+
+\end{document}
