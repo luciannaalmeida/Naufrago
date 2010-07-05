@@ -1,5 +1,5 @@
 /*
-  EP3 - Laboratório de Programação     9/06/2010
+  EP4 - Laboratório de Programação     09/06/2010
   
   Integrantes:
   Lucianna Thomaz Almeida      5893802  
