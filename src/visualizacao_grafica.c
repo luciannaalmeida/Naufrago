@@ -70,7 +70,9 @@ void desenha_coral(BITMAP *destino, int y, int x){
 void desenha_asimov(BITMAP *destino, int y1, int x1, int y2, int x2){
   /*void rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color); */
   /*int makecol(int r, int g, int b); */
-  rectfill(destino, x1, y1, x2, y2, makecol(0, 0, 0)); /* retangulo */
+  /* rectfill(destino, x1, y1, x2, y2, makecol(0, 0, 0)); */ /* retangulo */
+  BITMAP *asimov = load_bitmap("navio.bmp", NULL);
+  draw_sprite(destino, asimov, x1, y1);
 }
 
 void desenha_botes(BITMAP *destino, Bote botes[]){
