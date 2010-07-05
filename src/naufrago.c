@@ -65,20 +65,28 @@ int gera_direcao_aleatoria(){
   return (gera_aleatorio() % 8);
 }
 
-/* verifica se um passageiro esta fora do oceano */
-int esta_fora_do_oceano(naufrago passageiro){
-  if(passageiro.coordenada_x < 0 || passageiro.coordenada_x >= MAX_LONGITUDE ||
-     passageiro.coordenada_y < 0 || passageiro.coordenada_y >= MAX_LATITUDE)
-    return 1;
-  return 0;
-}
-
 /* Gera posicao aleatoria para o passageiro */
 naufrago gera_posicao_aleatoria(naufrago passageiro){
   passageiro.coordenada_x  = gera_aleatorio() % MAX_LONGITUDE;
   passageiro.coordenada_y = gera_aleatorio() % MAX_LATITUDE;
   return passageiro;
 }
+
+/* Gera posicao aleatoria para o passageiro na borda*/
+naufrago gera_posicao_na_borda(naufrago passageiro){
+  if(gera_aleatorio() % 2){
+    /* x no limite */
+    passageiro.coordenada_x = (gera_aleatorio() % 2) ? 0 : MAX_LONGITUDE - 1;
+    passageiro.coordenada_y = gera_aleatorio() % MAX_LATITUDE;
+  }
+  else{
+    /* y no limite */
+    passageiro.coordenada_x = gera_aleatorio() % MAX_LONGITUDE;
+    passageiro.coordenada_y = (gera_aleatorio() % 2) ? 0 : MAX_LATITUDE - 1; 
+  }
+  return passageiro;
+}
+
 
 /* verifica se a posicao ja esta ocupada */
 int posicao_ocupada(naufrago passageiro, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
@@ -139,8 +147,7 @@ naufrago reinicializa_passageiro(naufrago passageiro){
     tira_passageiro_do_oceano(y_passageiro, x_passageiro);
 
   passageiro.modulo_velocidade = gera_velocidade_passageiro_aleatoria();
-  while(nao_esta_na_borda(passageiro))
-    passageiro = gera_posicao_aleatoria(passageiro);
+  passageiro = gera_posicao_na_borda(passageiro);
   passageiro.direcao = gera_direcao_aleatoria();
   return passageiro;
 }

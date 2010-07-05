@@ -60,7 +60,7 @@ naufrago calcula_nova_posicao_do_elemento(naufrago passageiro){
   passageiro.coordenada_y += direcoes[passageiro.direcao].deslocamento_em_y;
 
   /* Coloca passageiro em uma das bordas caso ele tenha saido do oceano */
-  if(esta_fora_do_oceano(passageiro))
+  if(!esta_no_oceano(passageiro.coordenada_y, passageiro.coordenada_x))
     passageiro = reinicializa_passageiro(passageiro);
 
   return passageiro;
