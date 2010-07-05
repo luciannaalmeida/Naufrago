@@ -24,7 +24,10 @@
 #include "teclas.h"
 #include "imprime_informacoes.h"
 
+int acabaram_os_passageiros();
 void tira_passageiro_do_oceano(int y, int x);
+int pode_colocar_passageiro_no_oceano();
+void aumenta_numero_total_de_passageiros_usados();
 int pega_quantidade_de_passageiros();
 void seta_frequencia_geracao_passageiros(float frequencia);
 void seta_quantidade_inicial_passageiros(int quantidade_inicial);

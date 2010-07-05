@@ -25,11 +25,12 @@ typedef struct bote {
   int pontos;
   int vidas;
   int bonus_de_vida;
+  char* jogador;
 }Bote;
 
 #include "visualizacao_grafica.h"
 
-void cria_botes();
+void cria_botes(char* jogador1, char* jogador2);
 
 void imprime_botes(BITMAP *destino);
 
@@ -43,8 +44,10 @@ int bote_ancorado(int id);
 int pega_numero_de_passageiros_a_bordo(int id);
 int pega_numero_de_vidas_do_bote(int id);
 int pega_pontuacao_do_bote(int id);
+char* pega_nome_do_jogador(int id);
 int bote_afundou(int id);
 int botes_afundaram();
+char* pega_nome_do_vencedor();
 Bote pega_bote(int id);
 
 /* funcoes de atualizacoes das informacoes do bote*/

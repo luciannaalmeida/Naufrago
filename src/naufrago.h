@@ -21,6 +21,7 @@ typedef struct naufrago {
   int tempo_no_lugar;
   int direcao;
   int houve_colisao;
+  int esta_no_jogo;
 }naufrago;
 
 #include "jogo.h"
@@ -34,5 +35,7 @@ void gera_passageiro(naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE
 void gera_e_coloca_passageiro_no_oceano(naufrago *passageiros, int posicao, int oceano[MAX_LATITUDE][MAX_LONGITUDE]);
 int gera_velocidade_passageiro_aleatoria();
 naufrago reinicializa_passageiro(naufrago passageiro);
+naufrago tira_passageiro_do_jogo(naufrago passageiro);
+int passageiro_esta_no_jogo(naufrago passageiro);
 
 #endif

@@ -11,6 +11,6 @@
 void imprime_informacoes(BITMAP *destino);
 void inicializa_vetor_de_mensagem();
 void libera_vetor_de_mensagem();
-void imprime_fim_de_jogo(BITMAP *destino);
+void imprime_fim_de_jogo(BITMAP *destino, char* vencedor);
 
 #endif

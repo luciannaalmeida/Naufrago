@@ -98,6 +98,7 @@ void gera_passageiro(naufrago *passageiros, int i, int oceano[MAX_LATITUDE][MAX_
   passageiros[i].direcao = gera_direcao_aleatoria();
   passageiros[i].houve_colisao = 0;
   passageiros[i].tempo_no_lugar = 0;
+  passageiros[i].esta_no_jogo = 1;
 
   /* Gerar as componentes do vetor posicao, entre a faixa de valores MAX_LATITUDE e MAX_LONGITUDE */
   passageiros[i] = gera_posicao_aleatoria(passageiros[i]);
@@ -113,6 +114,7 @@ void coloca_passageiro_no_oceano(naufrago passageiro, int oceano[MAX_LATITUDE][M
 void gera_e_coloca_passageiro_no_oceano(naufrago *passageiros, int id, int oceano[MAX_LATITUDE][MAX_LONGITUDE]){
   gera_passageiro(passageiros, id, oceano);
   coloca_passageiro_no_oceano(passageiros[id], oceano);
+  aumenta_numero_total_de_passageiros_usados();
 }
 
 /* Verifica se passageiro nao esta na borda da matriz oceano */
@@ -130,13 +132,30 @@ naufrago reinicializa_passageiro(naufrago passageiro){
   y_passageiro = passageiro.coordenada_y;
   x_passageiro = passageiro.coordenada_x;
 
+  aumenta_numero_total_de_passageiros_usados();
+
   /* tira o passageiro da sua posicao caso ela seja dentro do oceno */
   if(esta_no_oceano(y_passageiro, x_passageiro))
-	tira_passageiro_do_oceano(y_passageiro, x_passageiro);
+    tira_passageiro_do_oceano(y_passageiro, x_passageiro);
 
   passageiro.modulo_velocidade = gera_velocidade_passageiro_aleatoria();
   while(nao_esta_na_borda(passageiro))
-	passageiro = gera_posicao_aleatoria(passageiro);
+    passageiro = gera_posicao_aleatoria(passageiro);
   passageiro.direcao = gera_direcao_aleatoria();
   return passageiro;
 }
+
+naufrago tira_passageiro_do_jogo(naufrago passageiro){
+  int y_passageiro, x_passageiro;
+  y_passageiro = passageiro.coordenada_y;
+  x_passageiro = passageiro.coordenada_x;
+
+  tira_passageiro_do_oceano(y_passageiro, x_passageiro);
+  passageiro.esta_no_jogo = 0;
+  return passageiro;
+}
+
+int passageiro_esta_no_jogo(naufrago passageiro){
+  return passageiro.esta_no_jogo;
+}
+

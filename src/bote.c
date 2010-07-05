@@ -11,7 +11,7 @@
 
 Bote botes[2];
 
-void cria_bote(int id, int y, int x){
+void cria_bote(int id, int y, int x, char* jogador){
   botes[id].coordenada_y = y;
   botes[id].coordenada_x = x;
   botes[id].modulo_velocidade = 0;
@@ -22,11 +22,12 @@ void cria_bote(int id, int y, int x){
   botes[id].pontos = 0;
   botes[id].vidas = NUMERO_INICIAL_DE_VIDAS;
   botes[id].bonus_de_vida = 0;
+  botes[id].jogador = jogador;
 }
 
-void cria_botes(){
-  cria_bote(0, 760, 410);
-  cria_bote(1, 760, 630);
+void cria_botes(char* jogador1, char* jogador2){
+  cria_bote(0, 760, 410, jogador1);
+  cria_bote(1, 760, 630, jogador2);
 }
 
 void imprime_botes(BITMAP *destino){
@@ -62,6 +63,10 @@ int pega_numero_de_passageiros_a_bordo(int id){
   return botes[id].numero_de_resgates;
 }
 
+char* pega_nome_do_jogador(int id){
+  return botes[id].jogador;
+}
+
 int bote_lotado(int id){
   if(botes[id].numero_de_resgates >= LOTACAO_DO_BOTE)
     return 1;
@@ -79,6 +84,12 @@ int bote_afundou(int id){
 
 int botes_afundaram(){
   return (bote_afundou(0) && bote_afundou(1));
+}
+
+char* pega_nome_do_vencedor(){
+  if(botes[0].pontos == botes[1].pontos)
+    return "Empate";
+  return (botes[0].pontos > botes[1].pontos ? botes[0].jogador : botes[1].jogador);
 }
 
 Bote pega_bote(int id){

@@ -9,6 +9,8 @@
 
 #include "asimov.h"
 
+int numero_total_de_resgates = 0;
+
 /* verifica se posicao esta dentro da asimov */
 int esta_na_asimov(int y, int x, int delta_de_aproximacao){
   int minimo_y, maximo_y, minimo_x, maximo_x;
@@ -39,3 +41,10 @@ void imprime_asimov(BITMAP *destino){
   desenha_asimov(destino, y1_ASIMOV, x1_ASIMOV, y2_ASIMOV, x2_ASIMOV);
 }
 
+void atualiza_numero_total_de_resgates(int quantidade){
+  numero_total_de_resgates += quantidade;
+}
+
+int pega_quantidade_total_de_resgates(){
+  return numero_total_de_resgates;
+}

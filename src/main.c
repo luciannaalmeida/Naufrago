@@ -16,6 +16,9 @@
 #include "movimenta_elementos.h"
 #include "jogo.h"
 
+int quantidade_inicial_passageiros, quantidade_maxima_passageiros;
+float frequencia_geracao_passageiros, velocidade_media_passageiros;
+
 
 /* imprime o menu de parametros */
 void imprime_help(){
@@ -25,9 +28,18 @@ void imprime_help(){
   printf("-f<valor>   -->   seta o valor da frequencia de geracao de passageiros.\n");
 }
 
+void verifica_configuracoes_do_passageiro(){
+int diferenca_limite_da_qtd_de_passageiros = quantidade_maxima_passageiros - quantidade_inicial_passageiros;
+  if(diferenca_limite_da_qtd_de_passageiros < 0 ||
+     frequencia_geracao_passageiros > diferenca_limite_da_qtd_de_passageiros ||
+     frequencia_geracao_passageiros <= 0.0){
+    printf("Erro nos parametros de configuracao do passageiro\n\n");
+    exit(-1);
+  }
+}
+
 int main(int argc, char* argv[]){
-  int semente, quantidade_inicial_passageiros, quantidade_maxima_passageiros;
-  float frequencia_geracao_passageiros, velocidade_media_passageiros;
+  int semente;
   int i;
 
   /* Verifica os valores passados pelo usuario:
@@ -81,7 +93,9 @@ int main(int argc, char* argv[]){
 
   /* Inicializa o vetor de direcoes */
   inicializa_vetor_de_direcoes();
-    
+  
+  verifica_configuracoes_do_passageiro();
+
   /* Rodar o jogo */
   jogo();
 

@@ -18,5 +18,7 @@
 int esta_na_asimov(int y, int x, int delta_de_aproximacao);
 void cria_asimov(int oceano[][MAX_LONGITUDE]);
 void imprime_asimov(BITMAP *destino);
+void atualiza_numero_total_de_resgates(int quantidade);
+int pega_quantidade_total_de_resgates();
 
 #endif

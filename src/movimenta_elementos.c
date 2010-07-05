@@ -10,10 +10,6 @@
 #include "movimenta_elementos.h"
 
 /*0  1  2*/
-/*3     4*/
-/*5  6  7*/
-
-/*0  1  2*/
 /*7     3*/
 /*6  5  4*/
 
@@ -86,25 +82,26 @@ naufrago atualiza_posicao_do_elemento_no_oceano(naufrago passageiro, int oceano[
 void movimenta_passageiros(naufrago *passageiros, int qtd_passageiros, int oceano[][MAX_LONGITUDE]){
   int i;
   for(i = 0; i < qtd_passageiros; i++){
-    /* Se nao houve colisao e nao passou tempo suficiente para o passageiro mudar de lugar, tempo_no_lugar eh acrescido */
-    if((passageiros[i].houve_colisao == 0) && (passageiros[i].tempo_no_lugar == (100 - passageiros[i].modulo_velocidade + 1))){
-      passageiros[i].tempo_no_lugar ++;
-    }
-    else{ 
-      /* Verifica se o passageiro havia colidido com alguma coisa na ultima rodada. Se sim, sua direcao nao sera recalculada */	  
-      /* Se nao havia colidido, calcula nova direcao normalmente */
-      if(passageiros[i].houve_colisao == 0)
-		calcula_nova_direcao(passageiros, i, oceano);
-      
-      /* Seta houve_colisao e tempo_no_lugar */
-      passageiros[i].houve_colisao = 0;
-      passageiros[i].tempo_no_lugar = 1;
-      
-      /* Muda o passageiro de lugar no oceano */
-      passageiros[i] = atualiza_posicao_do_elemento_no_oceano(passageiros[i], oceano);
+    if(passageiro_esta_no_jogo(passageiros[i])){
+      /* Se nao houve colisao e nao passou tempo suficiente para o passageiro mudar de lugar, tempo_no_lugar eh acrescido */
+      if((passageiros[i].houve_colisao == 0) && (passageiros[i].tempo_no_lugar == (100 - passageiros[i].modulo_velocidade + 1))){
+	passageiros[i].tempo_no_lugar ++;
+      }
+      else{ 
+	/* Verifica se o passageiro havia colidido com alguma coisa na ultima rodada. Se sim, sua direcao nao sera recalculada */	  
+	/* Se nao havia colidido, calcula nova direcao normalmente */
+	if(passageiros[i].houve_colisao == 0)
+	  calcula_nova_direcao(passageiros, i, oceano);
+	
+	/* Seta houve_colisao e tempo_no_lugar */
+	passageiros[i].houve_colisao = 0;
+	passageiros[i].tempo_no_lugar = 1;
+	
+	/* Muda o passageiro de lugar no oceano */
+	passageiros[i] = atualiza_posicao_do_elemento_no_oceano(passageiros[i], oceano);
+      }
     }
   }
-  
   /* Verifica e trata as colisoes */
   trata_colisao_entre_passageiros(passageiros, qtd_passageiros);
   trata_colisao_com_coral(passageiros, qtd_passageiros);

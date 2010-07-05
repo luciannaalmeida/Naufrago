@@ -70,29 +70,30 @@ void trata_colisao_entre_passageiros(naufrago *passageiros, int qtd_passageiros)
   int i, j, numero_colisoes, passageiro_colidido = 0;
   
   for(i = 0; i < qtd_passageiros; i++){
-    
-    /* Verifica com quantos passageiros o passageiro i colidiu */
-    for(j = 0, numero_colisoes = 0; j < qtd_passageiros; j++)
-      if(i != j && colidiram(passageiros[i], passageiros[j])){
-	passageiro_colidido = j;
-	numero_colisoes++;
-      }
-    
-    if(numero_colisoes >= 1){
-      /* Verifica se o passageiro colidiu com apenas um outro passageiro */
-      if(numero_colisoes == 1 && i < j){
-		if(passageiros[i].direcao == passageiros[j].direcao)
-		  troca_vetor_velocidade_de_passageiros_com_mesma_direcao(passageiros, i, j);
-		else
-		  troca_vetor_velocidade_dos_passageiros(passageiros, i, passageiro_colidido);
-      }
+    if(passageiro_esta_no_jogo(passageiros[i])){
+      /* Verifica com quantos passageiros o passageiro i colidiu */
+      for(j = 0, numero_colisoes = 0; j < qtd_passageiros; j++)
+	if(i != j && passageiro_esta_no_jogo(passageiros[j]) && colidiram(passageiros[i], passageiros[j])){
+	  passageiro_colidido = j;
+	  numero_colisoes++;
+	}
       
-      /* Inverte a direcao do passageiro no caso de ter ocorrido alguma colisao (numero_colisoes > 1) */
-      else if(numero_colisoes > 1)
-		passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
-      
-      /* Marca no passageiro que ocorreu colisao */
-      passageiros[i].houve_colisao = 1;
+      if(numero_colisoes >= 1){
+	/* Verifica se o passageiro colidiu com apenas um outro passageiro */
+	if(numero_colisoes == 1 && i < j){
+	  if(passageiros[i].direcao == passageiros[j].direcao)
+	    troca_vetor_velocidade_de_passageiros_com_mesma_direcao(passageiros, i, j);
+	else
+	  troca_vetor_velocidade_dos_passageiros(passageiros, i, passageiro_colidido);
+	}
+	
+	/* Inverte a direcao do passageiro no caso de ter ocorrido alguma colisao (numero_colisoes > 1) */
+	else if(numero_colisoes > 1)
+	  passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+	
+	/* Marca no passageiro que ocorreu colisao */
+	passageiros[i].houve_colisao = 1;
+      }
     }
   }
 }
@@ -119,9 +120,11 @@ int colidiu_com_coral(naufrago passageiro, Coral coral){
 void trata_colisao_com_coral(naufrago* passageiros, int qtd_passageiros){
   int i, j;
   for(i = 0; i < qtd_passageiros; i++){
-    for(j = 0; j< NUMERO_DE_CORAIS; j++){
-      if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
-		passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+    if(passageiro_esta_no_jogo(passageiros[i])){
+      for(j = 0; j< NUMERO_DE_CORAIS; j++){
+	if(colidiu_com_coral(passageiros[i], vetor_de_corais[j]))
+	  passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+      }
     }
   }
 }
@@ -145,8 +148,8 @@ int colidiu_com_asimov(naufrago passageiro){
 void trata_colisao_com_asimov(naufrago* passageiros, int qtd_passageiros){
   int i;
   for(i = 0; i < qtd_passageiros; i++){
-	if(colidiu_com_asimov(passageiros[i]))
-	  passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
+    if(passageiro_esta_no_jogo(passageiros[i]) && colidiu_com_asimov(passageiros[i]))
+      passageiros[i].direcao = inverte_direcao(passageiros[i].direcao);
   }
 }
 
@@ -223,13 +226,18 @@ void trata_colisao_do_bote_com_passageiros(int id_bote, naufrago *passageiros){
 
   /* percorre todos os passageiros verificando se eles foram pegos pelo bote */
   for(i = 0; i < quantidade_de_passageiros; i++){
-    if(vertices_do_bote_batem_no_passageiro(passageiros[i], y, x) || 
-       circunferencia_colide_com_bote(passageiros[i].coordenada_y, passageiros[i].coordenada_x, RAIO_PASSAGEIRO, y, x)){ 
-      if(bote_lotado(id_bote) || bote_ancorado(id_bote))
-	inverte_direcao_do_passageiro(passageiros, i);
-      else{
-	passageiros[i] = reinicializa_passageiro(passageiros[i]);
-	aumenta_numero_de_resgates(id_bote);
+    if(passageiro_esta_no_jogo(passageiros[i])){
+      if(vertices_do_bote_batem_no_passageiro(passageiros[i], y, x) || 
+	 circunferencia_colide_com_bote(passageiros[i].coordenada_y, passageiros[i].coordenada_x, RAIO_PASSAGEIRO, y, x)){ 
+	if(bote_lotado(id_bote) || bote_ancorado(id_bote))
+	  inverte_direcao_do_passageiro(passageiros, i);
+	else{
+	  if(pode_colocar_passageiro_no_oceano())
+	    passageiros[i] = tira_passageiro_do_jogo(passageiros[i]);
+	  else
+	    passageiros[i] = reinicializa_passageiro(passageiros[i]);
+	  aumenta_numero_de_resgates(id_bote);
+	}
       }
     }
   }
@@ -281,8 +289,10 @@ int bote_pode_descarregar(int id_bote){
 void trata_colisoes_do_bote(int id_bote, naufrago *passageiros){
   trata_colisao_do_bote_com_passageiros(id_bote, passageiros);
   trata_colisao_entre_botes();  
-  if(bote_pode_descarregar(id_bote))
+  if(bote_pode_descarregar(id_bote)){
+    atualiza_numero_total_de_resgates(pega_numero_de_passageiros_a_bordo(id_bote));
     descarrega_passageiros(id_bote);
+  }
   else
     trata_colisao_do_bote_com_os_elementos_estaticos(id_bote);  
 }
