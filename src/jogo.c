@@ -103,7 +103,7 @@ void jogo(){
   
 
   /* Enquanto nao eh o fim do jogo */
-  for(tempo = 1; (tempo < 50) && (!key[KEY_ESC]); tempo++){
+  for(tempo = 1; (tempo < DURACAO_DO_JOGO) && (!key[KEY_ESC]); tempo++){
     
     tempo_inicial = clock();
 	/* Tempo esperado para ajudar a impressao */

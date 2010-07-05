@@ -11,6 +11,8 @@
 #define CONSTANTES_H
 
 
+#define DURACAO_DO_JOGO 5000
+
 #define VEL_MEDIA_PASSAGEIROS      75
 #define VEL_MAX_PASSAGEIROS       100
 #define VEL_MIN_PASSAGEIROS        50
