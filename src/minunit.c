@@ -29,7 +29,7 @@ void verifica_velocidades_altas(){
   seta_velocidade_media_passageiros(velocidade_alta);
 
   /*gera o estado inicial do oceano, com os passageiros recebendo suas posicoes iniciais*/
-  passageiros = gera_estado_inicial_oceano(oceano);
+  passageiros = gera_estado_inicial_oceano(1, oceano);
   
   /*inicia as iteracoes*/
   for(i=0; i<10000; i++)
@@ -49,7 +49,7 @@ void verifica_velocidades_baixas(){
   seta_velocidade_media_passageiros(velocidade_baixa);
 
   /*gera o estado inicial do oceano, com os passageiros recebendo suas posicoes iniciais*/
-  passageiros = gera_estado_inicial_oceano(oceano);
+  passageiros = gera_estado_inicial_oceano(1, oceano);
 
   /*inicia as iteracoes*/
   for(i=0; i<10000; i++)
@@ -62,7 +62,7 @@ void verifica_velocidades_baixas(){
 /*Verifica se o programa eh instavel em uma ferquencia alta*/
 void verifica_frequencias_altas(){
   float frequencia_alta = 100.0;                     /*maior frequencia possivel equivalente ao i maximo*/
-  int quantidade_maxima_possivel = 3600;             /*numero maximo de passageiros em uma matriz 120x30*/
+  int quantidade_maxima_possivel = 342;             /*numero maximo de passageiros em uma matriz 1024 x 728*/
   int i;                                             /*contador de iteracoes*/
 
 
@@ -73,7 +73,7 @@ void verifica_frequencias_altas(){
   seta_frequencia_geracao_passageiros(frequencia_alta);
 
   /*gera o estado inicial do oceano, com os passageiros recebendo suas posicoes iniciais*/
-  passageiros = gera_estado_inicial_oceano(oceano);
+  passageiros = gera_estado_inicial_oceano(1, oceano);
 
   /*como o i maximo multiplicado pela frequencia deve ser menor do que o numero de pixels */
   /*na tela, eu diferenciei o i dos outros testes para nao ficar em loop.*/
@@ -94,7 +94,7 @@ void verifica_frequencias_baixas(){
   seta_frequencia_geracao_passageiros(frequencia_baixa);
 
   /*gera o estado inicial do oceano, com os passageiros recebendo suas posicoes iniciais*/
-  passageiros = gera_estado_inicial_oceano(oceano);
+  passageiros = gera_estado_inicial_oceano(1, oceano);
 
   /*inicia as iteracoes*/  
   for(i=0; i<1000; i++)
@@ -138,54 +138,7 @@ void verifica_colisoes_entre_2_elementos(){
     printf("Colisao de passageiros na mesma direcao e sentidos opostos falhou\n");
     exit(1);
   }
-
-  /* /\*verifica quando os passageiros estao em direcoes congruentes*\/ */
-  /* gera_passageiros_personalizados(0, 100, 1, 15, 15); */
-  /* gera_passageiros_personalizados(1, 100, 0, 16, 15); */
-  /* for(i=0; i<2; i++) */
-  /*   atualiza_jogo(passageiros, i, oceano); */
-  /* if(!(passageiro_esta_na_posicao(0, 13, 14) && passageiro_esta_na_posicao(1, 13, 15))){ */
-  /*   printf("Colisao de passageiros em direcoes congruentes falhou\n"); */
-  /*   printf("Got:\n"); */
-  /*   printf("\t0) %d %d\n", passageiros[0].coordenada_x, passageiros[0].coordenada_y); */
-  /*   printf("\t1) %d %d\n", passageiros[1].coordenada_x, passageiros[1].coordenada_y); */
-  /*   printf("Expected:\n"); */
-  /*   printf("\t0) %d %d\n", 13, 14); */
-  /*   printf("\t1) %d %d\n", 13, 15); */
-  /*   exit(1); */
-  /* } */
-
-  /* /\*verifica quando os passageiros estao em direcoes ortogonais*\/ */
-  /* gera_passageiros_personalizados(0, 100, 4, 15, 15); */
-  /* gera_passageiros_personalizados(1, 100, 1, 16, 16); */
-  /* for(i=0; i<2; i++) */
-  /*   atualiza_jogo(passageiros, i, oceano); */
-  /* if(!(passageiro_esta_na_posicao(0, 14, 16) && passageiro_esta_na_posicao(1, 17, 15))){ */
-  /*   printf("Colisao de passageiros em direcoes ortogonais falhou:\n"); */
-  /*   printf("Got:\n"); */
-  /*   printf("\t0) %d %d\n", passageiros[0].coordenada_x, passageiros[0].coordenada_y); */
-  /*   printf("\t1) %d %d\n", passageiros[1].coordenada_x, passageiros[1].coordenada_y); */
-  /*   printf("Expected:\n"); */
-  /*   printf("\t0) %d %d\n", 14, 16); */
-  /*   printf("\t1) %d %d\n", 17, 15); */
-  /*   exit(1); */
-  /* } */
 }
-
-/*verifica a colisao de tres elementos,  e generaliza para mais que 3*/
-/*void verifica_colisoes_entre_3_ou_mais_elementos(){
-  int i;  
-
-  coloca_agua_oceano(oceano);
-  gera_passageiros_personalizados(0, 10, 1, 15, 15);
-  gera_passageiros_personalizados(0, 20, 1, 16, 14);
-  gera_passageiros_personalizados(0, 10, 1, 14, 16);
-  for(i=0; i<2; i++)
-    atualiza_posicoes_dos_elementos(passageiros, 2, oceano);
-  if(bla)
-    printf("Colisao com 3 ou mais elementos obteve sucesso.\n");
-}
-*/
 /*Calcula as estatisticas do programa*/
 void calcula_estatisticas(){
   int soma_de_velocidades = 0;               /*soma as velocidades obtidas*/

@@ -62,6 +62,6 @@
 #define DELAY 1000
 #define REPEAT 0
 
-#define esta_no_oceano(y, x) (((x) < 0 || (x) >= MAX_LONGITUDE || (y) < 0 || (y) >= MAX_LATITUDE) ? 0 : 1)
+#define esta_no_oceano(y, x) ((x) >= 0 && (x) < MAX_LONGITUDE && (y) >= 0 && (y) < MAX_LATITUDE)
 
 #endif
