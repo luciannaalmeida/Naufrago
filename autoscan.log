@@ -1,0 +1,68 @@
+autoscan: warning: missing AC_CHECK_HEADERS([stdlib.h]) wanted by: 
+	src/coral.h:14
+	src/minunit.c:12
+	src/naufrago.h:15
+	src/main.c:12
+	src/jogo.h:15
+	src/asimov.h:14
+	src/colisoes.h:13
+	src/bote.h:15
+	src/visualizacao_grafica.h:15
+	src/estado_inicial.h:14
+	src/imprime_informacoes.h:15
+	src/teclas.h:16
+	src/movimenta_elementos.h:15
+autoscan: warning: missing AC_CHECK_HEADERS([string.h]) wanted by: 
+	src/imprime_informacoes.h:17
+autoscan: warning: missing AC_CHECK_HEADERS([unistd.h]) wanted by: 
+	src/jogo.h:16
+autoscan: warning: missing AC_FUNC_MALLOC wanted by: 
+	src/imprime_informacoes.c:17
+	src/estado_inicial.c:24
+autoscan: warning: missing AC_PREREQ wanted by: 
+	autoscan
+autoscan: warning: missing AC_PROG_CC wanted by: 
+	src/coral.h
+	src/minunit.c
+	src/coral.c
+	src/naufrago.h
+	src/bote.c
+	src/colisoes.c
+	src/jogo.c
+	src/main.c
+	src/visualizacao_grafica.c
+	src/asimov.c
+	src/jogo.h
+	src/teclas.c
+	src/asimov.h
+	src/movimenta_elementos.c
+	src/colisoes.h
+	src/bote.h
+	src/visualizacao_grafica.h
+	src/constantes.h
+	src/imprime_estado_atual.h
+	src/estado_inicial.h
+	src/imprime_estado_atual.c
+	src/naufrago.c
+	src/imprime_informacoes.c
+	src/estado_inicial.c
+	src/imprime_informacoes.h
+	src/teclas.h
+	src/movimenta_elementos.h
+	Makefile.in:7
+	Makefile.in:10
+	Makefile.in:13
+	Makefile.in:16
+	Makefile.in:19
+	Makefile.in:22
+	Makefile.in:25
+	Makefile.in:28
+	Makefile.in:31
+	Makefile.in:34
+	Makefile.in:37
+	Makefile.in:40
+	Makefile.in:43
+	Makefile.in:46
+	Makefile.in:59
+autoscan: warning: missing AC_PROG_MAKE_SET wanted by: 
+	install.sh:4
