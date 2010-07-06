@@ -27,9 +27,9 @@ void libera_vetor_de_mensagem(){
 
 void imprime_fim_de_jogo(BITMAP *destino, char* vencedor){
   sprintf(mensagem, "GAME OVER");
-  textout_ex(destino, font, mensagem, (MAX_LONGITUDE/2)-40, (MAX_LATITUDE/2)-4, makecol(255,255,255), -1);
+  textout_ex(destino, font, mensagem, (MAX_LONGITUDE/2)-40, (MAX_LATITUDE/2)+20, makecol(0,0,0), -1);
   sprintf(mensagem, "Ganhador: %s", vencedor);
-  textout_ex(destino, font, mensagem, (MAX_LONGITUDE/2)-60, (MAX_LATITUDE/2)+6, makecol(255,255,255), -1);
+  textout_ex(destino, font, mensagem, (MAX_LONGITUDE/2)-80, (MAX_LATITUDE/2)+30, makecol(0,0,0), -1);
 }
 
 void imprime_vida(int id, int inicio_y, int inicio_x, BITMAP *destino){
