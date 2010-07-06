@@ -1,6 +1,8 @@
 CFLAGS = -Wall -pedantic -ansi -O2 -g -ggdb3 -lalleg-4.2.2 
 dependencies = main.o estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o coral.o colisoes.o asimov.o bote.o imprime_informacoes.o teclas.o
+dependencies_for_tests = estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o visualizacao_grafica.o coral.o colisoes.o asimov.o bote.o imprime_informacoes.o teclas.o
 objects = lib/main.o lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o lib/coral.o lib/colisoes.o lib/asimov.o lib/bote.o lib/imprime_informacoes.o lib/teclas.o
+objects_for_tests = lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o lib/visualizacao_grafica.o lib/coral.o lib/colisoes.o lib/asimov.o lib/bote.o lib/imprime_informacoes.o lib/teclas.o
 
 all: lib ${dependencies}
 	clear
@@ -45,7 +47,6 @@ imprime_informacoes.o: lib src/imprime_informacoes.c src/imprime_informacoes.h
 teclas.o: lib src/teclas.c src/teclas.h
 	gcc ${CFLAGS} -c src/teclas.c -o lib/teclas.o 
 
-
 doc/Relatorio.pdf: doc/src/Relatorio.tex
 	pdflatex doc/src/Relatorio.tex
 	pdflatex doc/src/Relatorio.tex
@@ -56,8 +57,8 @@ doc/Relatorio.pdf: doc/src/Relatorio.tex
 
 doc: doc/Relatorio.pdf
 
-testes: estado_inicial.o imprime_estado_atual.o jogo.o movimenta_elementos.o naufrago.o src/minunit.c
-	gcc ${CFLAGS} src/minunit.c lib/estado_inicial.o lib/imprime_estado_atual.o lib/jogo.o lib/movimenta_elementos.o lib/naufrago.o -o teste
+testes: lib ${dependencies_for_tests} src/minunit.c
+	gcc ${CFLAGS} src/minunit.c ${objects_for_tests} -o teste
 	clear	
 	./teste
 
@@ -65,4 +66,4 @@ lib:
 	mkdir lib
 
 clean:
-	rm -rf exe lib doc/Relatorio.pdf Relatorio.out
+	rm -rf exe teste lib doc/Relatorio.pdf Relatorio.out
